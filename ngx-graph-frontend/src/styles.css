@@ -1,0 +1,8 @@
+/* Add application styles & imports to this file! */
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Lato;
+}
