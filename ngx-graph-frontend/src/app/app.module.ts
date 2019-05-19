@@ -6,9 +6,19 @@ import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
-  imports:      [ BrowserModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule, MaterialModule, NgxGraphModule ],
+  imports:      
+  [ 
+    BrowserModule, 
+    BrowserAnimationsModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    MaterialModule,
+    NgxGraphModule,
+    CoreModule 
+  ],
   declarations: [ AppComponent, SidebarComponent ],
   bootstrap:    [ AppComponent ]
 })

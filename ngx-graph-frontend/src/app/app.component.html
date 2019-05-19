@@ -8,8 +8,8 @@
         [clusters]="clusters"
         [layout]="layout"
         [curve]="curve"
-        [draggingEnabled]="draggingEnabled"
-        [panningEnabled]="panningEnabled"
+        [draggingEnabled]="true"
+        [panningEnabled]="true"
         [enableZoom]="zoomEnabled"
         [zoomSpeed]="zoomSpeed"
         [minZoomLevel]="minZoomLevel"
@@ -20,6 +20,8 @@
         [update$]="update$"
         [center$]="center$"
         [zoomToFit$]="zoomToFit$"
+        [animate]="true"
+        [panToNode$]="panToNode$"
       >
 
         <ng-template #defsTemplate>
@@ -36,7 +38,7 @@
 
         <ng-template #nodeTemplate let-node>
           <svg:g class="node">
-            <svg:circle [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" [attr.fill]="node.data.color"/>
+            <svg:circle [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" [attr.fill]="node.meta.color"/>
             <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">{{node.label}}</svg:text>
           </svg:g>
         </ng-template>

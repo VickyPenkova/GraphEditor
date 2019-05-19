@@ -3,6 +3,7 @@ import * as shape from 'd3-shape';
 import { Edge, Node, ClusterNode, Layout } from '@swimlane/ngx-graph';
 import { nodes, clusters, links } from './data';
 import { Subject } from 'rxjs';
+import { GraphService } from './core/services/graph.service';
 
 @Component({
   selector: 'graph-visualizer',
@@ -10,12 +11,27 @@ import { Subject } from 'rxjs';
   styleUrls: [ './app.component.scss' ]
 })
 export class AppComponent implements OnInit {
+
+  nodes: Node[] = []
+  links: Edge[] = []
+
+  update$: Subject<boolean> = new Subject();
+  panToNode$: Subject<string> = new Subject();
+
+  constructor(private graphService: GraphService) {
+    this.graphService.nodesObservable.subscribe(ns => {
+      this.nodes = ns;
+      this.update$.next(true)
+      this.panToNode$.next(ns[ns.length -1].id)
+    })
+  }
+
   name = 'NGX-Graph Demo';
 
-  nodes: Node[] = nodes;
+  //nodes: Node[] = nodes;
   clusters: ClusterNode[] = clusters;
 
-  links: Edge[] = links;
+  //links: Edge[] = links;
   
   layout: String | Layout = 'colaForceDirected';
   layouts: any[] = [
@@ -67,8 +83,6 @@ export class AppComponent implements OnInit {
 
   autoZoom: boolean = false;
   autoCenter: boolean = false; 
-
-  update$: Subject<boolean> = new Subject();
   center$: Subject<boolean> = new Subject();
   zoomToFit$: Subject<boolean> = new Subject();
 
