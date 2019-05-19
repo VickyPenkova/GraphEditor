@@ -1,0 +1,59 @@
+<!--<h1>Working!!</h1>-->
+
+
+<div class="slim-sidebar">
+  <a title="Add Node" href="#"><img class="icon" src="assets/icons/graph_node.png"/></a> 
+  <a title="Add Link" href="#"><img class="icon" src="assets/icons/graph_connection_directed.png"/></a> 
+  <a href="#"><img class="icon" src="assets/icons/graph_triangle.png"/></a> 
+  <a class="active" href="#"><img class="icon" src="assets/icons/graph_self_loop.png"/></a>
+  <a href="#"><img class="icon" src="assets/icons/graph_fork2.png"/></a> 
+  <a href="#"><img class="icon" src="assets/icons/graph_claw.png"/></a> 
+</div>
+<!--
+<mat-drawer mode="side" opened class="sidebar">
+  <h2>Configuration</h2>
+  <form class="settings">
+    <mat-form-field>
+      <mat-select placeholder="Layout" [ngModel]="layout" (ngModelChange)="setLayout($event)" name="layout">
+        <mat-option *ngFor="let l of layouts"  [value]="l.value">
+          {{l.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Line Curve Interpolation" [ngModel]="curveType" (ngModelChange)="setInterpolationType($event)" name="curve">
+        <mat-option *ngFor="let curveType of interpolationTypes"  [value]="curveType">
+          {{curveType}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="draggingEnabled" name="draggingEnabled">Enable Dragging</mat-checkbox>
+    <mat-checkbox [(ngModel)]="panningEnabled" name="panningEnabled">Enable Panning</mat-checkbox>
+    <mat-checkbox [(ngModel)]="zoomEnabled" name="zoonEnabled">Enable Zoom</mat-checkbox>
+
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="zoomSpeed" name="zoomSpeed" placeholder="Zoom speed" step="0.1">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="minZoomLevel" name="minZoomLevel" placeholder="Min Zoom Level" min="0" [max]="maxZoomLevel" step="0.1">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="maxZoomLevel" name="maxZoomLevel" placeholder="Max Zoom Level" [min]="minZoomLevel" step="0.1">
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="panOnZoom" name="panOnZoom">Pan while zooming</mat-checkbox>
+
+    <mat-checkbox [(ngModel)]="autoZoom" name="autoZoom">Auto Zoom </mat-checkbox>
+
+    <mat-checkbox [(ngModel)]="autoCenter" name="autoCenter">Auto Center </mat-checkbox>
+  </form>
+
+  <button mat-stroked-button color="primary" class="button" (click)="update$.next(true)">Update</button>
+  <button mat-stroked-button color="primary" class="button" (click)="center$.next(true)">Center</button>
+  <button mat-stroked-button color="primary" class="button" (click)="zoomToFit$.next(true)">Zoom to fit</button>
+</mat-drawer>
+-->

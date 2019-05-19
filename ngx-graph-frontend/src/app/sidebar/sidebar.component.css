@@ -1,0 +1,65 @@
+.slim-sidebar {
+    z-index: 2;
+    position: absolute;
+    width: 50px;
+    background-color:white;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-sizing: border-box;
+    -webkit-box-shadow: 6px 6px 10px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: 6px 6px 10px -4px rgba(0,0,0,0.75);
+    box-shadow: 6px 6px 10px -4px rgba(0,0,0,0.75);
+}
+  
+.slim-sidebar a {
+    display: block;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.icon {
+    width: 30px;
+    border-radius: 100%;
+    box-sizing: border-box
+}
+
+.slim-sidebar a:hover {
+    background-color: lightgray;
+}
+  
+.active {
+    background-color: #a1c057;
+}
+
+
+/*
+p {
+    font-family: Lato;
+  }
+  
+  .sidebar {
+    background: #efefef;
+    padding: 10px;
+  }
+  
+  .page {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  mat-form-field, mat-checkbox {
+    display: block;
+    width: 100%;
+  }
+  
+  mat-checkbox {
+    margin-bottom: 10px;
+  }
+  
+  .button {
+    margin: 3px;
+  }*/
