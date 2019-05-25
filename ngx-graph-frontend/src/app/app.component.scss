@@ -1,3 +1,11 @@
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #A1C057; /*replace with your color*/
+}
+
+::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+  background-color: #95a570;  /*replace with your color*/
+}
+
 p {
   font-family: Lato;
 }
@@ -24,4 +32,33 @@ mat-checkbox {
 
 .button {
   margin: 3px;
+}
+
+.node {
+  cursor: pointer;
+  transform-origin: 3% 3%;
+  transition: all .3s;
+}
+
+.node:hover {
+  transform:scale(1.1);
+  -webkit-transform:scale(1.1);
+  -moz-transform:scale(1.1); 
+  -ms-transform:scale(1.1); 
+  -o-transform:scale(1.1);
+}
+
+.circle {
+  transition: all .3s;
+}
+
+.circle:hover{
+  fill: #DA4567;
+}
+
+.mat-slide-toggle {
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+  top: 10px;
 }

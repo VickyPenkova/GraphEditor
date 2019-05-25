@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphService } from '../core/services/graph.service';
 import { Node } from '@swimlane/ngx-graph';
+import { NodeService } from '../core/services/node.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,9 +15,15 @@ export class SidebarComponent implements OnInit {
   private height:number = 100;
   private color:string = "#A1C057";
 
-  constructor(private graphService: GraphService) { }
+  private nodesOpenForEditting: Node[];
+
+  constructor(private graphService: GraphService,
+              private nodeService: NodeService) { }
 
   ngOnInit() {
+    this.nodeService.observeNodesOpenForEditting.subscribe(nodesOpenForEditting => {
+      this.nodesOpenForEditting = nodesOpenForEditting;
+    });
   }
 
   addNode():void {
