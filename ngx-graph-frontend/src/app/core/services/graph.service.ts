@@ -20,6 +20,24 @@ export class GraphService {
     this._nodesObservable.next(this.nodes);
   }
 
+  getNodeById(id:string) {
+    for(let node of this.nodes) {
+      if(node.id == id) {
+        return node;
+      }
+    }
+    return null;
+  }
+
+  updateNodeById(id:string, node:Node) {
+    for(let node of this.nodes) {
+      if(node.id == id) {
+        node = node;
+      }
+    }
+    this._nodesObservable.next(this.nodes);
+  }
+
   get nodesObservable(): Subject<Node[]> {
     return this._nodesObservable;
   }

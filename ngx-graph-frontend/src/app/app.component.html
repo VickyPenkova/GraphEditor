@@ -1,4 +1,5 @@
 <app-sidebar></app-sidebar>
+<mat-slide-toggle [formControl]="activate" (change)="toggleMultipleEditors($event)">multiple editors</mat-slide-toggle>
 <mat-drawer-container class="example-container">
   <mat-drawer-content>
     <div class="page">
@@ -37,8 +38,8 @@
         </ng-template>
 
         <ng-template #nodeTemplate let-node>
-          <svg:g class="node">
-            <svg:circle [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" [attr.fill]="node.meta.color"/>
+          <svg:g class="node" (click)="openNodeForEditting($event, node.id)">
+            <svg:circle class="circle" [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" [attr.fill]="node.meta.color"/>
             <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">{{node.label}}</svg:text>
           </svg:g>
         </ng-template>

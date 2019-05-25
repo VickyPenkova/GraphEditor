@@ -1,37 +1,39 @@
+.sidebar {
+  z-index: 2;
+  position: absolute;
+}
+
 .slim-sidebar {
-    z-index: 2;
-    position: absolute;
-    width: 50px;
-    background-color:white;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    box-sizing: border-box;
-    -webkit-box-shadow: 6px 6px 10px -4px rgba(0,0,0,0.75);
-    -moz-box-shadow: 6px 6px 10px -4px rgba(0,0,0,0.75);
-    box-shadow: 6px 6px 10px -4px rgba(0,0,0,0.75);
+  margin-top: 5px;
+  float: left;
+  width: 50px;
+  background-color:white;
+  margin-left: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 7px 13px 0 rgba(86, 95, 102, 0.07);
+  border-radius: 5px;
 }
   
 .slim-sidebar a {
-    display: block;
-    text-align: center;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    padding: 10px;
+  display: block;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  padding: 10px;
 }
 
 .icon {
-    width: 30px;
-    border-radius: 100%;
-    box-sizing: border-box
+  width: 30px;
+  border-radius: 100%;
+  box-sizing: border-box
 }
 
 .slim-sidebar a:hover {
-    background-color: lightgray;
+  background-color: lightgray;
 }
   
 .active {
-    background-color: #a1c057;
+  background-color: #a1c057;
 }
 
 

@@ -4,6 +4,8 @@ import { Edge, Node, ClusterNode, Layout } from '@swimlane/ngx-graph';
 import { nodes, clusters, links } from './data';
 import { Subject } from 'rxjs';
 import { GraphService } from './core/services/graph.service';
+import { NodeService } from './core/services/node.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'graph-visualizer',
@@ -18,12 +20,17 @@ export class AppComponent implements OnInit {
   update$: Subject<boolean> = new Subject();
   panToNode$: Subject<string> = new Subject();
 
-  constructor(private graphService: GraphService) {
+  constructor(private graphService: GraphService,
+              private nodeService: NodeService) {
+  }
+
+  ngOnInit() {
     this.graphService.nodesObservable.subscribe(ns => {
       this.nodes = ns;
       this.update$.next(true)
       this.panToNode$.next(ns[ns.length -1].id)
-    })
+    });
+    this.setInterpolationType(this.curveType);
   }
 
   name = 'NGX-Graph Demo';
@@ -85,10 +92,6 @@ export class AppComponent implements OnInit {
   autoCenter: boolean = false; 
   center$: Subject<boolean> = new Subject();
   zoomToFit$: Subject<boolean> = new Subject();
-
-  ngOnInit() {
-    this.setInterpolationType(this.curveType);
-  }
    
   setInterpolationType(curveType) {
     this.curveType = curveType;
@@ -134,7 +137,18 @@ export class AppComponent implements OnInit {
     }
   }
 
-  clickNode(event, label){
-    alert(label)
+  openNodeForEditting(event, id) {
+    let node:Node = this.graphService.getNodeById(id);
+    this.nodeService.openNodeForEditting(node);
+
+    for(let node of this.nodes) {
+      console.log(node);
+    }
+  }
+
+  private activate = new FormControl();
+
+  toggleMultipleEditors() {
+    this.nodeService.multipleEditors = this.activate.value;
   }
 }
