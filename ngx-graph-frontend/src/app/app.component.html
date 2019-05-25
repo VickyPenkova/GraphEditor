@@ -1,5 +1,13 @@
 <app-sidebar></app-sidebar>
-<mat-slide-toggle [formControl]="activate" (change)="toggleMultipleEditors($event)">multiple editors</mat-slide-toggle>
+
+<div class="graph-options">
+  <mat-slide-toggle [formControl]="activate" (change)="toggleMultipleEditors($event)">multiple editors</mat-slide-toggle>
+  <mat-select placeholder="Layout" [ngModel]="layout" (ngModelChange)="setLayout($event)" name="layout">
+    <mat-option *ngFor="let l of layouts"  [value]="l.value">
+      {{l.label}}
+    </mat-option>
+  </mat-select>
+</div>
 <mat-drawer-container class="example-container">
   <mat-drawer-content>
     <div class="page">
@@ -21,7 +29,7 @@
         [update$]="update$"
         [center$]="center$"
         [zoomToFit$]="zoomToFit$"
-        [animate]="true"
+        [animate]="false"
         [panToNode$]="panToNode$"
       >
 
@@ -38,18 +46,18 @@
         </ng-template>
 
         <ng-template #nodeTemplate let-node>
-          <svg:g class="node" (click)="openNodeForEditting($event, node.id)">
-            <svg:circle class="circle" [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" [attr.fill]="node.meta.color"/>
+          <svg:g class="node" (click)="clickNode($event, node.id)">
+            <svg:circle class="circle" [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" attr.fill="{{node.meta.color}}"/>
             <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">{{node.label}}</svg:text>
           </svg:g>
         </ng-template>
 
         <ng-template #linkTemplate let-link>
-          <svg:g class="edge">
-            <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
+          <svg:g class="edge" (click)="clickEdge($event, link.id)">
+            <svg:path class="line" [attr.stroke-width]="link.data.stroke_width" marker-end="url(#arrow)" [attr.stroke]="link.data.color" >
             </svg:path>
             <svg:text class="edge-label" text-anchor="middle">
-              <textPath class="text-path" [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
+              <textPath [attr.fill]="link.data.color" class="text-path" [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
                 {{link.label}}
               </textPath>
             </svg:text>
