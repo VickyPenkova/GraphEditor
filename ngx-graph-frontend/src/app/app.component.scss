@@ -6,6 +6,23 @@
   background-color: #95a570;  /*replace with your color*/
 }
 
+.graph-options {
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+  top: 10px;
+  width: 170px;
+}
+
+.mat-select, .mat-slide-toggle {
+  float: right;
+}
+
+.mat-select {
+  width: 100%;;
+}
+
+
 p {
   font-family: Lato;
 }
@@ -34,7 +51,7 @@ mat-checkbox {
   margin: 3px;
 }
 
-.node {
+.node, .edge {
   cursor: pointer;
   transform-origin: 3% 3%;
   transition: all .3s;
@@ -54,11 +71,4 @@ mat-checkbox {
 
 .circle:hover{
   fill: #DA4567;
-}
-
-.mat-slide-toggle {
-  position: absolute;
-  z-index: 2;
-  right: 10px;
-  top: 10px;
 }

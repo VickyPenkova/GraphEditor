@@ -1,0 +1,39 @@
+
+
+<div class="side-slide-menu">
+
+    <div class="color-picker">
+      <app-color-picker [color]="_color" [heading]="'Background'" (event)="setItemColor($event)">
+      </app-color-picker>
+    </div>
+
+    <div class="content">
+      <form>
+        <div class="group">      
+          <input #labelInput type="text" (keyup)="onKeyUp($event, labelInput.value)" [ngStyle]="{'border-color': _color, 'color': _color}" required value='{{_label}}'>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+          <label>Node label</label>
+        </div>
+      </form>
+    </div>
+
+    <div class="footer">
+      <div class="cssCircle plusSign untouchable" (click)="scale($event, 1)" [ngStyle]="{'color': _color}">
+        &#43;
+      </div>
+      <div class="scale">   {{_dim}} px </div> 
+      <div class="cssCircle minusSign untouchable" (click)="scale($event, -1)" [ngStyle]="{'color': _color}">
+        &#8211;
+      </div>
+      <div (click)="delete()" class="delete untouchable">
+          delete
+        </div>
+    </div>
+
+    <div class="header" [ngStyle]="{'background': _color}">
+      <div (click)="itemEditService.closeItemForEditting(item)" class="close untouchable" [ngStyle]="{'color': _color}">
+        <b>x</b>
+      </div>
+    </div>
+</div>

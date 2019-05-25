@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 import { GraphService } from './core/services/graph.service';
 import { NodeService } from './core/services/node.service';
 import { FormControl } from '@angular/forms';
+import { EdgeService } from './core/services/edge.service';
+import { ItemEditService } from './core/services/item-edit.service';
 
 @Component({
   selector: 'graph-visualizer',
@@ -21,15 +23,26 @@ export class AppComponent implements OnInit {
   panToNode$: Subject<string> = new Subject();
 
   constructor(private graphService: GraphService,
-              private nodeService: NodeService) {
+              private nodeService: NodeService,
+              private edgeService: EdgeService,
+              private itemEditService: ItemEditService) {
   }
 
   ngOnInit() {
     this.graphService.nodesObservable.subscribe(ns => {
       this.nodes = ns;
       this.update$.next(true)
-      this.panToNode$.next(ns[ns.length -1].id)
+
+      if(ns.length > 0) {
+        this.panToNode$.next(ns[ns.length -1].id)
+      }
     });
+
+    this.graphService.edgesObservable.subscribe(es => {
+      this.links = es;
+      this.update$.next(true)
+    });
+  
     this.setInterpolationType(this.curveType);
   }
 
@@ -137,18 +150,31 @@ export class AppComponent implements OnInit {
     }
   }
 
-  openNodeForEditting(event, id) {
-    let node:Node = this.graphService.getNodeById(id);
-    this.nodeService.openNodeForEditting(node);
-
-    for(let node of this.nodes) {
-      console.log(node);
+  clickNode(event, id) {
+    if (this.edgeService.addingEdge){
+      this.edgeService.addNodeToEdge(id);
+    } else {
+      this.openNodeForEditting(id);
     }
+  }
+
+  openNodeForEditting(id) {
+    let node:Node = this.graphService.getNodeById(id);
+    this.itemEditService.openItemForEditting(node);
+  }
+
+  clickEdge(event, id) {
+    this.openEdgeForEditting(id);
+  }
+
+  openEdgeForEditting(id) {
+    let edge:Edge = this.graphService.getEdgeById(id);
+    this.itemEditService.openItemForEditting(edge);
   }
 
   private activate = new FormControl();
 
   toggleMultipleEditors() {
-    this.nodeService.multipleEditors = this.activate.value;
+    this.itemEditService.multipleEditors = this.activate.value;
   }
 }

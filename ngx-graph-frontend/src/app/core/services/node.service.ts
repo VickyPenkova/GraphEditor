@@ -1,48 +1,61 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Node } from '@swimlane/ngx-graph';
+import { GraphService } from './graph.service';
+import { EdgeService } from './edge.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NodeService {
 
-  private _multipleEditors: boolean = false;
-  private _nodesOpenForEditting: Node[] = [];
-  private _nodesOpenForEdittingObservable: Subject<Node[]> = new Subject<Node[]> ();
+  private id:number = 0;
+  private width:number = 100;
+  private height:number = 100;
+  private color:string = "#A1C057";
 
-  constructor() { }
+  constructor(private graphService: GraphService,
+              private edgeService: EdgeService) { }
 
-  get observeNodesOpenForEditting(): Subject<Node[]> {
-    return this._nodesOpenForEdittingObservable;
-  }
-
-  openNodeForEditting(node:Node) : void {
-    if (this._nodesOpenForEditting.indexOf(node) > -1) {
-      console.log("Node: " + node + " already open for editting.")
-      return;
+  addNode():void {
+    let node: Node = {
+      dimension: {width: this.width, height: this.height},
+      meta: {
+        forceDimensions: true,
+        color: this.colorLuminance(this.color, this.getRandomArbitrary(-0.2, 0.2))
+      },
+      position:{
+        x: 0,
+        y: 0
+      },
+      id: "node"+(this.id++).toString(),
+      label: 'Node ' + (this.id).toString()
     }
+    
+    this.graphService.addNode(node);
+  }
 
-    console.log("Opening node for editting: " + node)
-    this._nodesOpenForEditting.push(node);
+  private colorLuminance(hex, lum):string {
 
-    if(this._multipleEditors) {
-      this._nodesOpenForEdittingObservable.next(this._nodesOpenForEditting);
-    } else {
-      this.closeUnneededEditors();
+    // validate hex string
+    hex = String(hex).replace(/[^0-9a-f]/gi, '');
+    if (hex.length < 6) {
+      hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
     }
+    lum = lum || 0;
+  
+    // convert to decimal and change luminosity
+    var rgb = "#", c, i;
+    for (i = 0; i < 3; i++) {
+      c = parseInt(hex.substr(i*2,2), 16);
+      c = Math.round(Math.min(Math.max(0, c + (c * lum)), 255)).toString(16);
+      rgb += ("00"+c).substr(c.length);
+    }
+  
+    return rgb;
   }
 
-  set multipleEditors(enabled:boolean) {
-      this._multipleEditors = enabled;
-
-      if (!enabled) {
-        this.closeUnneededEditors();
-      }
-  }
-
-  private closeUnneededEditors(): void {
-    this._nodesOpenForEditting = [this._nodesOpenForEditting[this._nodesOpenForEditting.length - 1]];
-    this._nodesOpenForEdittingObservable.next(this._nodesOpenForEditting);
+  private getRandomArbitrary(min, max):number {
+    return Math.random() * (max - min) + min;
   }
 }

@@ -7,8 +7,8 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CoreModule } from './core/core.module';
-import { NodeEditorComponent } from './sidebar/node-editor/node-editor.component';
 import { ColorPickerComponent } from './sidebar/color-picker/color-picker.component';
+import { ItemEditorComponent } from './sidebar/item-editor/item-editor.component';
 
 @NgModule({
   imports:      
@@ -21,7 +21,7 @@ import { ColorPickerComponent } from './sidebar/color-picker/color-picker.compon
     NgxGraphModule,
     CoreModule 
   ],
-  declarations: [ AppComponent, SidebarComponent, NodeEditorComponent, ColorPickerComponent ],
+  declarations: [ AppComponent, SidebarComponent, ColorPickerComponent, ItemEditorComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
