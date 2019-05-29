@@ -1,0 +1,344 @@
+{
+  "graph": {
+    "nodes": [
+      {
+        "id": "pos",
+        "description": "parts of speech"
+      },
+      {
+        "id": "conjunction",
+        "description": "conjunctions root"
+      },
+      {
+        "id": "CC",
+        "description": "coordinating conjunction"
+      },
+      {
+        "id": "IN",
+        "description": "preposition/subordinating conjunction"
+      },
+      {
+        "id": "CD",
+        "description": "cardinal digit"
+      },
+      {
+        "id": "JJ",
+        "description": "adjective"
+      },
+      {
+        "id": "JJR",
+        "description": "adjective, comparative"
+      },
+      {
+        "id": "JJS",
+        "description": "adjective, superlative"
+      },
+      {
+        "id": "VB",
+        "description": "verb"
+      },
+      {
+        "id": "VBD",
+        "description": "verb, past tense"
+      },
+      {
+        "id": "VBG",
+        "description": "verb, gerund/present participle"
+      },
+      {
+        "id": "VBN",
+        "description": "verb, past participle"
+      },
+      {
+        "id": "VBP",
+        "description": "verb, sing. present, non-3d"
+      },
+      {
+        "id": "VBZ",
+        "description": "verb, 3rd person sing. present"
+      },
+      {
+        "id": "noun",
+        "description": "nouns root"
+      },
+      {
+        "id": "NN",
+        "description": "noun singular"
+      },
+      {
+        "id": "NNS",
+        "description": "noun plural"
+      },
+      {
+        "id": "proper noun",
+        "description": "proper nouns root"
+      },
+      {
+        "id": "NNP",
+        "description": "proper noun, singular"
+      },
+      {
+        "id": "NNPS",
+        "description": "proper noun, plural"
+      },
+      {
+        "id": "RB",
+        "description": "adverb"
+      },
+      {
+        "id": "RBR",
+        "description": "adverb, comparative"
+      },
+      {
+        "id": "RBS",
+        "description": "adverb, superlative"
+      },
+      {
+        "id": "pronoun",
+        "description": "pronouns root"
+      },
+      {
+        "id": "PRP",
+        "description": "personal pronoun"
+      },
+      {
+        "id": "PRP$",
+        "description": "possessive pronoun"
+      },
+      {
+        "id": "wh root",
+        "description": "proper nouns root"
+      },
+      {
+        "id": "WDT",
+        "description": "wh-determiner"
+      },
+      {
+        "id": "WP",
+        "description": "wh-pronoun"
+      },
+      {
+        "id": "WP$",
+        "description": "possessive wh-pronoun"
+      },
+      {
+        "id": "WRB",
+        "description": "wh-abverb"
+      },
+      {
+        "id": "DT",
+        "description": "determiner"
+      },
+      {
+        "id": "PDT",
+        "description": "predeterminer"
+      },
+      {
+        "id": "FW",
+        "description": "foreign word"
+      },
+      {
+        "id": "TO",
+        "description": "to"
+      },
+      {
+        "id": "POS",
+        "description": "possessive ending"
+      },
+      {
+        "id": "UH",
+        "description": "interjection"
+      },
+      {
+        "id": "EX",
+        "description": "existential there"
+      },
+      {
+        "id": "LS",
+        "description": "list marker"
+      },
+      {
+        "id": "MD",
+        "description": "modal could"
+      },
+      {
+        "id": "RP",
+        "description": "particle"
+      }
+    ],
+    "edges": [
+      {
+        "source": "pos",
+        "target": "conjunction"
+      },
+      {
+        "source": "conjunction",
+        "target": "CC"
+      },
+      {
+        "source": "conjunction",
+        "target": "IN"
+      },
+      {
+        "source": "pos",
+        "target": "CD"
+      },
+      {
+        "source": "pos",
+        "target": "JJ"
+      },
+      {
+        "source": "JJ",
+        "target": "JJR"
+      },
+      {
+        "source": "JJ",
+        "target": "JJS"
+      },
+      {
+        "source": "pos",
+        "target": "VB"
+      },
+      {
+        "source": "VB",
+        "target": "VBD"
+      },
+      {
+        "source": "VB",
+        "target": "VBG"
+      },
+      {
+        "source": "VB",
+        "target": "VBN"
+      },
+      {
+        "source": "VB",
+        "target": "VBP"
+      },
+      {
+        "source": "A",
+        "target": "VBZ"
+      },
+      {
+        "source": "pos",
+        "target": "noun"
+      },
+      {
+        "source": "noun",
+        "target": "NN"
+      },
+      {
+        "source": "noun",
+        "target": "NNS"
+      },
+      {
+        "source": "noun",
+        "target": "proper noun"
+      },
+      {
+        "source": "proper noun",
+        "target": "NNP"
+      },
+      {
+        "source": "proper noun",
+        "target": "NNPS"
+      },
+      {
+        "source": "pos",
+        "target": "RB"
+      },
+      {
+        "source": "RB",
+        "target": "RBR"
+      },
+      {
+        "source": "RB",
+        "target": "RBS"
+      },
+      {
+        "source": "pos",
+        "target": "pronoun"
+      },
+      {
+        "source": "pronoun",
+        "target": "PRP"
+      },
+      {
+        "source": "pronoun",
+        "target": "PRP$"
+      },
+      {
+        "source": "pos",
+        "target": "wh root"
+      },
+      {
+        "source": "wh root",
+        "target": "WP"
+      },
+      {
+        "source": "pronoun",
+        "target": "WP"
+      },
+      {
+        "source": "wh root",
+        "target": "WP$"
+      },
+      {
+        "source": "pronoun",
+        "target": "WP$"
+      },
+      {
+        "source": "wh root",
+        "target": "WRB"
+      },
+      {
+        "source": "pronoun",
+        "target": "WRB"
+      },
+      {
+        "source": "wh root",
+        "target": "WDT"
+      },
+      {
+        "source": "pos",
+        "target": "DT"
+      },
+      {
+        "source": "DT",
+        "target": "PDT"
+      },
+      {
+        "source": "pos",
+        "target": "FW"
+      },
+      {
+        "source": "pos",
+        "target": "TO"
+      },
+      {
+        "source": "pos",
+        "target": "POS"
+      },
+      {
+        "source": "pos",
+        "target": "UH"
+      },
+      {
+        "source": "pos",
+        "target": "EX"
+      },
+      {
+        "source": "pos",
+        "target": "LS"
+      },
+      {
+        "source": "pos",
+        "target": "MD"
+      },
+      {
+        "source": "pos",
+        "target": "RP"
+      }
+    ]
+  }
+}
