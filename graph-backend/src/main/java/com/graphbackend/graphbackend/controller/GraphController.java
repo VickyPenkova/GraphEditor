@@ -7,10 +7,12 @@ import com.graphbackend.graphbackend.service.GraphService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController(value = GraphController.GRAPH_API_PATH)
+import java.util.List;
+
+@RestController(GraphController.GRAPH_API_PATH)
 public class GraphController {
 
-   static final String GRAPH_API_PATH = "api/graph";
+   static final String GRAPH_API_PATH = "/api/v1/graphs";
 
    private GraphService graphService;
 
@@ -24,10 +26,13 @@ public class GraphController {
       return graphService.getGraph(graphName);
    }
 
+   @GetMapping(params={"!graphName"})
+   public List<GetGraphResponseDTO> listGraphs() {
+      return graphService.listGraphs();
+   }
+
    @PostMapping
    public void saveGraph(@RequestParam String graphName, @RequestBody JsonNode graph) {
       graphService.saveGraph(graphName, graph);
    }
-
-
 }

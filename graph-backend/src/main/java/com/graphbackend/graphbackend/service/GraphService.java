@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GraphService {
@@ -24,23 +26,38 @@ public class GraphService {
 
       Graph graphEntity = graphRepository.findById(graphName).get();
 
-      ObjectMapper mapper = new ObjectMapper();
-
-      JsonNode graph = null;
-
-      try {
-         graph = mapper.readTree(graphEntity.getGraphJson());
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
+      JsonNode graph = deserializeGraph(graphEntity.getGraphJson());
 
       return new GetGraphResponseDTO(graphEntity.getName(), graph);
    }
 
    public void saveGraph(String graphName, JsonNode graph) {
-////      System.out.println(graph);
-//      System.out.println(graph.str());
 
       graphRepository.save(new Graph(graphName, graph.toString()));
+   }
+
+   public List<GetGraphResponseDTO> listGraphs() {
+
+      Iterable<Graph> graphs = graphRepository.findAll();
+
+      List<GetGraphResponseDTO> graphResponseDTOS = new ArrayList<>();
+
+      for (Graph g : graphs) {
+         graphResponseDTOS.add(new GetGraphResponseDTO(g.getName(), deserializeGraph(g.getGraphJson())));
+      }
+
+      return graphResponseDTOS;
+   }
+
+   private JsonNode deserializeGraph(String graph) {
+      JsonNode jsonGraph = null;
+      ObjectMapper mapper = new ObjectMapper();
+
+      try {
+         jsonGraph = mapper.readTree(graph);
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+      return jsonGraph;
    }
 }
