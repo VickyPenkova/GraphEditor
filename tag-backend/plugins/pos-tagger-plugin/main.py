@@ -1,17 +1,27 @@
 import nltk
-import argparse
+import json
+import os
 
-parser = argparse.ArgumentParser(description='Arguments for the tagger')
-
-parser.add_argument('input_text', type=str, help='Text to tag')
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def tag(input_text):
+    print(dir_path)
     text = nltk.word_tokenize(input_text)
 
     tagged = nltk.pos_tag(text)
-    tagged = [(tag[0], LABEL_MAPPINGS[tag[1]]) for tag in tagged]
 
-    return tagged
+    return construct_graph(tagged)
+
+def construct_graph(tagged):
+
+    with open(os.path.join(dir_path, 'graph.json')) as f:
+        graph = json.load(f)
+
+    for idx, tag in enumerate(tagged):
+        graph['graph']['nodes'].append({'id': idx, 'data': tag[0]})
+        graph['graph']['edges'].append({'source': idx, 'target': tag[1]})
+
+    return json.dumps(graph)
 
 
 #Source for the meaning of the labels
