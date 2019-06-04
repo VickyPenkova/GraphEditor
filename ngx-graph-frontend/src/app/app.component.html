@@ -1,20 +1,30 @@
-<app-sidebar></app-sidebar>
+<!-- <app-menubar></app-menubar> -->
+<!-- <router-outlet></router-outlet> -->
+<app-anotate-text></app-anotate-text>
 
+<!-- <app-sidebar></app-sidebar>
 <div class="graph-options">
-  <mat-slide-toggle [formControl]="activate" (change)="toggleMultipleEditors($event)">multiple editors</mat-slide-toggle>
-  <mat-select placeholder="Layout" [ngModel]="layout" (ngModelChange)="setLayout($event)" name="layout">
-    <mat-option *ngFor="let l of layouts"  [value]="l.value">
-      {{l.label}}
+  <mat-slide-toggle
+    [formControl]="activate"
+    (change)="toggleMultipleEditors($event)"
+    >multiple editors</mat-slide-toggle
+  >
+  <mat-select
+    placeholder="Layout"
+    [ngModel]="layout"
+    (ngModelChange)="setLayout($event)"
+    name="layout"
+  >
+    <mat-option *ngFor="let l of layouts" [value]="l.value">
+      {{ l.label }}
     </mat-option>
   </mat-select>
 </div>
 
 <mat-drawer-container class="example-container">
   <mat-drawer-content>
-      <app-graph-renderer>
-
-      </app-graph-renderer>
-      <!--
+    <app-graph-renderer> </app-graph-renderer> -->
+<!--
       <ngx-graph
         [links]="links"
         [nodes]="nodes"
@@ -36,40 +46,72 @@
         [animate]="false"
         [panToNode$]="panToNode$"
       >
-
         <ng-template #defsTemplate>
-          <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+          <svg:marker
+            id="arrow"
+            viewBox="0 -5 10 10"
+            refX="8"
+            refY="0"
+            markerWidth="4"
+            markerHeight="4"
+            orient="auto"
+          >
             <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
           </svg:marker>
         </ng-template>
 
         <ng-template #clusterTemplate let-cluster>
           <svg:g class="node cluster">
-            <svg:rect rx="5" ry="5" [attr.width]="cluster.dimension.width" [attr.height]="cluster.dimension.height" [attr.fill]="cluster.data.color" />
+            <svg:rect
+              rx="5"
+              ry="5"
+              [attr.width]="cluster.dimension.width"
+              [attr.height]="cluster.dimension.height"
+              [attr.fill]="cluster.data.color"
+            />
           </svg:g>
         </ng-template>
 
         <ng-template #nodeTemplate let-node>
           <svg:g class="node" (click)="clickNode($event, node.id)">
-            <svg:circle class="circle" [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" attr.fill="{{node.meta.color}}"/>
-            <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">{{node.label}}</svg:text>
+            <svg:circle
+              class="circle"
+              [attr.r]="node.dimension.width / 2"
+              [attr.cx]="node.dimension.width / 2"
+              [attr.cy]="node.dimension.width / 2"
+              attr.fill="{{ node.meta.color }}"
+            />
+            <svg:text
+              alignment-baseline="central"
+              [attr.x]="10"
+              [attr.y]="node.dimension.height / 2"
+            >
+              {{ node.label }}
+            </svg:text>
           </svg:g>
         </ng-template>
 
         <ng-template #linkTemplate let-link>
           <svg:g class="edge" (click)="clickEdge($event, link.id)">
-            <svg:path class="line" [attr.stroke-width]="link.data.stroke_width" marker-end="url(#arrow)" [attr.stroke]="link.data.color" >
-            </svg:path>
+            <svg:path
+              class="line"
+              [attr.stroke-width]="link.data.stroke_width"
+              marker-end="url(#arrow)"
+              [attr.stroke]="link.data.color"
+            ></svg:path>
             <svg:text class="edge-label" text-anchor="middle">
-              <textPath [attr.fill]="link.data.color" class="text-path" [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
-                {{link.label}}
+              <textPath
+                [attr.fill]="link.data.color"
+                class="text-path"
+                [attr.href]="'#' + link.id"
+                [style.dominant-baseline]="link.dominantBaseline"
+                startOffset="50%"
+              >
+                {{ link.label }}
               </textPath>
             </svg:text>
           </svg:g>
         </ng-template>
-      </ngx-graph>-->
-    
-  </mat-drawer-content>
-</mat-drawer-container>
-
-
+      </ngx-graph> -->
+<!-- </mat-drawer-content>
+</mat-drawer-container> -->

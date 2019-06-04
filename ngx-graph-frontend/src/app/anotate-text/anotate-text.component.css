@@ -1,0 +1,51 @@
+/* Color Palette
+#a0be56  green
+#282828  dark gray
+
+*/
+
+.wrapper {
+  position: relative;
+  top: 55px;
+  margin: 10px;
+}
+h2 {
+  color: #a0be56;
+}
+.upload-file {
+  background-color: #282828;
+  color: #a0be56;
+  border: 1px solid #a0be56;
+  border-radius: 20px;
+}
+.upload-btn-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.btn {
+  border: 2px solid #a0be56;
+  color: #282828;
+  background-color: white;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.upload-btn-wrapper input[type="file"] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+#uploaded-file-title {
+  margin-left: 10px;
+  color: #a0be56;
+}
+#output-text-container {
+  margin: 10px;
+  font-size: 1.5rem;
+}
