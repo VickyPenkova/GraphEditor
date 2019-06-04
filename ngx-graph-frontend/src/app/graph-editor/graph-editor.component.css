@@ -1,0 +1,57 @@
+::ng-deep
+  .mat-slide-toggle.mat-checked:not(.mat-disabled)
+  .mat-slide-toggle-thumb {
+  background-color: #a1c057; /*replace with your color*/
+}
+
+::ng-deep
+  .mat-slide-toggle.mat-checked:not(.mat-disabled)
+  .mat-slide-toggle-bar {
+  background-color: #95a570; /*replace with your color*/
+}
+
+.graph-options {
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+  top: 10px;
+  width: 170px;
+}
+
+.mat-select,
+.mat-slide-toggle {
+  float: right;
+}
+
+.mat-select {
+  width: 100%;
+}
+
+p {
+  font-family: Lato;
+}
+
+.sidebar {
+  background: #efefef;
+  padding: 10px;
+}
+
+.ngx-graph {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+mat-form-field,
+mat-checkbox {
+  display: block;
+  width: 100%;
+}
+
+mat-checkbox {
+  margin-bottom: 10px;
+}
+
+.button {
+  margin: 3px;
+}
