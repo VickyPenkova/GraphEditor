@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <h2>Annotate Text</h2>
+  <div class="upload-btn-wrapper">
+    <button class="btn">Upload a file</button>
+    <input
+      type="file"
+      accept=".txt"
+      class="upload-file"
+      id="upload-file-button"
+      (change)="changeOfFile($event)"
+    />
+    <span id="uploaded-file-title">No file selected</span>
+  </div>
+  <div class="output-text-container" (mouseup)="handleTextSelection($event)">
+    {{ this.stringArray }}
+  </div>
+
+  <div>
+    <textarea
+      id="sel"
+      rows="3"
+      cols="50"
+      value="{{ this.markedWord }}"
+    ></textarea>
+  </div>
+</div>
