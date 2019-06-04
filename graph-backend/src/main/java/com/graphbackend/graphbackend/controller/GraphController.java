@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController(GraphController.GRAPH_API_PATH)
+@RestController
 public class GraphController {
-
-   static final String GRAPH_API_PATH = "/api/v1/graphs";
 
    private GraphService graphService;
 
@@ -21,17 +19,17 @@ public class GraphController {
       this.graphService = graphService;
    }
 
-   @GetMapping
-   public GetGraphResponseDTO getGraph(@RequestParam String graphName) {
+   @GetMapping(value = "/api/v1/graphs/{graphName}")
+   public GetGraphResponseDTO getGraph(@PathVariable String graphName) {
       return graphService.getGraph(graphName);
    }
 
-   @GetMapping(params={"!graphName"})
+   @GetMapping(value = "/api/v1/graphs")
    public List<GetGraphResponseDTO> listGraphs() {
       return graphService.listGraphs();
    }
 
-   @PostMapping
+   @PostMapping(value = "/api/v1/graphs")
    public void saveGraph(@RequestParam String graphName, @RequestBody JsonNode graph) {
       graphService.saveGraph(graphName, graph);
    }
