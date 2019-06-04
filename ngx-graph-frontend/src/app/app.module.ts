@@ -9,6 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { CoreModule } from './core/core.module';
 import { ColorPickerComponent } from './sidebar/color-picker/color-picker.component';
 import { ItemEditorComponent } from './sidebar/item-editor/item-editor.component';
+import { GraphRendererComponent } from './graph-renderer/graph-renderer.component';
 
 @NgModule({
   imports:      
@@ -21,7 +22,7 @@ import { ItemEditorComponent } from './sidebar/item-editor/item-editor.component
     NgxGraphModule,
     CoreModule 
   ],
-  declarations: [ AppComponent, SidebarComponent, ColorPickerComponent, ItemEditorComponent ],
+  declarations: [ AppComponent, SidebarComponent, ColorPickerComponent, ItemEditorComponent, GraphRendererComponent ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

@@ -1,21 +1,5 @@
-<app-sidebar></app-sidebar>
-
-<div class="graph-options">
-  <mat-slide-toggle [formControl]="activate" (change)="toggleMultipleEditors($event)">multiple editors</mat-slide-toggle>
-  <mat-select placeholder="Layout" [ngModel]="layout" (ngModelChange)="setLayout($event)" name="layout">
-    <mat-option *ngFor="let l of layouts"  [value]="l.value">
-      {{l.label}}
-    </mat-option>
-  </mat-select>
-</div>
-
-<mat-drawer-container class="example-container">
-  <mat-drawer-content>
-      <app-graph-renderer>
-
-      </app-graph-renderer>
-      <!--
-      <ngx-graph
+<div class="page">
+<ngx-graph
         [links]="links"
         [nodes]="nodes"
         [clusters]="clusters"
@@ -67,9 +51,6 @@
             </svg:text>
           </svg:g>
         </ng-template>
-      </ngx-graph>-->
-    
-  </mat-drawer-content>
-</mat-drawer-container>
+      </ngx-graph>
 
-
+    </div>
