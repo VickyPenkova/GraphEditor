@@ -9,7 +9,8 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { CoreModule } from "./core/core.module";
 import { ColorPickerComponent } from "./sidebar/color-picker/color-picker.component";
 import { ItemEditorComponent } from "./sidebar/item-editor/item-editor.component";
-import { GraphRendererComponent } from "./graph-renderer/graph-renderer.component";
+import { MenubarComponent } from "./menubar/menubar.component";
+import { AnotateTextComponent } from "./anotate-text/anotate-text.component";
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { GraphRendererComponent } from "./graph-renderer/graph-renderer.componen
     SidebarComponent,
     ColorPickerComponent,
     ItemEditorComponent,
-    GraphRendererComponent
+    MenubarComponent,
+    AnotateTextComponent
   ],
   bootstrap: [AppComponent]
 })
