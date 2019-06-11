@@ -4,6 +4,7 @@ import { Node, Edge } from '@swimlane/ngx-graph';
 import { NodeService } from '../core/services/node.service';
 import { EdgeService } from '../core/services/edge.service';
 import { ItemEditService } from '../core/services/item-edit.service';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,12 +17,18 @@ export class SidebarComponent implements OnInit {
 
   constructor(private nodeService: NodeService,
               private itemEditService: ItemEditService,
-              private edgeService: EdgeService) { }
+              private edgeService: EdgeService,
+              private graphService: GraphService) { }
 
   ngOnInit() {
     this.itemEditService.observeItemsOpenForEditting.subscribe(itemsOpenForEditting => {
       this.itemsOpenForEditting = itemsOpenForEditting;
     });
+  }
+
+  downloadGraph() {
+    var ar = [this.graphService._nodes, this.graphService._edges];
+    saveAs(new Blob([JSON.stringify(ar)], {type: 'application/json' }), "graph.json");
   }
 
 }

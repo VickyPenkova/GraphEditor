@@ -102,4 +102,12 @@ export class GraphService {
   get edgesObservable(): Subject<Edge[]> {
     return this._edgesObservable;
   }
+
+  get _nodes(): Node[] {
+    return this.nodes;
+  }
+
+  get _edges(): Edge[] {
+    return this.edges;
+  }
 }

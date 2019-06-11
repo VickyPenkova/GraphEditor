@@ -8,6 +8,7 @@ import { NodeService } from '../core/services/node.service';
 import { FormControl } from '@angular/forms';
 import { EdgeService } from '../core/services/edge.service';
 import { ItemEditService } from '../core/services/item-edit.service';
+import { LayoutService } from '../core/services/layout.service';
 
 @Component({
   selector: 'app-graph-renderer',
@@ -23,10 +24,13 @@ export class GraphRendererComponent implements OnInit {
   panToNode$: Subject<string> = new Subject();
   zoomToFit$: Subject<boolean> = new Subject();
 
+  layout: String;
+
   constructor(private graphService: GraphService,
               private nodeService: NodeService,
               private edgeService: EdgeService,
-              private itemEditService: ItemEditService) {
+              private itemEditService: ItemEditService,
+              private layoutService: LayoutService) {
   }
 
   ngOnInit() {
@@ -43,6 +47,10 @@ export class GraphRendererComponent implements OnInit {
       this.links = es;
       this.update$.next(true)
     });
+
+    this.layoutService.layout.subscribe(l => {
+      this.setLayout(l);
+    });
   
     this.setInterpolationType(this.curveType);
     this.fitGraph();
@@ -54,29 +62,6 @@ export class GraphRendererComponent implements OnInit {
   clusters: ClusterNode[] = clusters;
 
   //links: Edge[] = links;
-  
-  layout: String | Layout = 'colaForceDirected';
-  layouts: any[] = [
-    {
-      label: 'Dagre',
-      value: 'dagre',
-    },
-    {
-      label: 'Dagre Cluster',
-      value: 'dagreCluster',
-      isClustered: true,
-    },
-    {
-      label: 'Cola Force Directed',
-      value: 'colaForceDirected',
-      isClustered: true,
-    },
-    {
-      label: 'D3 Force Directed',
-      value: 'd3ForceDirected',
-    },
-  ];
-
 
   // line interpolation
   curveType: string = 'Bundle';
@@ -144,8 +129,8 @@ export class GraphRendererComponent implements OnInit {
     this.zoomToFit$.next(true)
   }
 
-  setLayout(layoutName: string): void {
-    const layout = this.layouts.find(l => l.value === layoutName);
+  setLayout(layoutName: String): void {
+    const layout = this.layoutService.layouts.find(l => l.value === layoutName);
     this.layout = layoutName;
     if (!layout.isClustered) {
       this.clusters = undefined;
@@ -176,10 +161,5 @@ export class GraphRendererComponent implements OnInit {
     this.itemEditService.openItemForEditting(edge);
   }
 
-  private activate = new FormControl();
-
-  toggleMultipleEditors() {
-    this.itemEditService.multipleEditors = this.activate.value;
-  }
 
 }
