@@ -27,7 +27,7 @@
             class="output-text-container handleOverflow"
             (mouseup)="handleTextSelection($event)"
           >
-            <p id="anchor"></p>
+            {{ displayedText }}
           </div>
         </div>
       </div>
@@ -56,16 +56,16 @@
         <!-- put graph editor here? -->
         <div class="col-lg-12">
           <div class="simulate">
-            <p id="node1" (click)="changeTextOfNode($event)">
+            <p id="node1">
               I am simulating a graph node
             </p>
-            <p id="node2" (click)="changeTextOfNode($event)">
+            <p id="node2">
               Me too
             </p>
-            <p id="node3" (click)="changeTextOfNode($event)">
+            <p id="node3">
               Me three
             </p>
-            <p id="node4" (click)="changeTextOfNode($event)">
+            <p id="node4">
               Me four
             </p>
           </div>
