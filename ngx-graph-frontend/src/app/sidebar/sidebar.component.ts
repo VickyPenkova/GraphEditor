@@ -27,17 +27,10 @@ export class SidebarComponent implements OnInit {
   }
 
   downloadGraph() {
-    var ar = [this.graphService._nodes, this.graphService._edges];
-    saveAs(new Blob([JSON.stringify(ar)], {type: 'application/json' }), "graph.json");
+    saveAs(new Blob([this.graphService.getGraphJson()], {type: 'application/json' }), this.graphService.graphName);
   }
 
   saveGraph() {
-    const name: string = "Graph Name" + Math.random();
-    const nodes: Node[] = this.graphService._nodes;
-    const edges: Edge[] = this.graphService._edges;
-
-    const graphData: string = this.graphService.getGraphJson(name, nodes, edges);
-    this.graphService.saveGraph(name, graphData)
-        .subscribe(g => console.log(`Saved graph: ${g} to db`));
+    this.graphService.saveGraph().subscribe(g => console.log(`Saved graph: ${g} to db`));
   }
 }

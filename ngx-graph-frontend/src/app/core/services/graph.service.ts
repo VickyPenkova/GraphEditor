@@ -16,6 +16,7 @@ export class GraphService {
 
   private nodes: Node[] = [];
   private edges: Edge[] = [];
+  private _graphName: String = "Graph 1";
 
   private _nodesObservable: Subject<Node[]> = new Subject<Node[]> ();
   private _edgesObservable: Subject<Edge[]> = new Subject<Edge[]> ();
@@ -104,17 +105,17 @@ export class GraphService {
     this._edgesObservable.next(this.edges);
   }
 
-  getGraphJson(name: string, nodes: Node[], edges: Edge[]): string {
+  getGraphJson(): string {
     return JSON.stringify({
-      "nodes": nodes,
-      "edges": edges
+      "name": this._graphName,
+      "nodes": this.nodes,
+      "edges": this.edges
     });
   }
 
-  saveGraph(name: string, graphJson: string): Observable<any> {
-    const url: string = saveGraphUrl + `?graphName="${name}"`;
-    console.log(`HERE: ${url}`);
-    return this.http.post<any>(url, graphJson, httpOptions)
+  saveGraph(): Observable<any> {
+    const url: string = saveGraphUrl + `?graphName="${this._graphName}"`;
+    return this.http.post<any>(url, this.getGraphJson(), httpOptions)
         .pipe(tap(graph => console.log(graph)));
   }
 
@@ -132,5 +133,9 @@ export class GraphService {
 
   get _edges(): Edge[] {
     return this.edges;
+  }
+
+  get graphName(): String {
+    return this._graphName;
   }
 }
