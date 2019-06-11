@@ -1,16 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { AnotateTextComponent } from './anotate-text.component';
+import { AnotateTextComponent } from "./anotate-text.component";
 
-describe('AnotateTextComponent', () => {
+describe("AnotateTextComponent", () => {
   let component: AnotateTextComponent;
   let fixture: ComponentFixture<AnotateTextComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AnotateTextComponent ]
-    })
-    .compileComponents();
+      declarations: [AnotateTextComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('AnotateTextComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
