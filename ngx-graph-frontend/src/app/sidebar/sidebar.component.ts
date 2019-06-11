@@ -31,4 +31,13 @@ export class SidebarComponent implements OnInit {
     saveAs(new Blob([JSON.stringify(ar)], {type: 'application/json' }), "graph.json");
   }
 
+  saveGraph() {
+    const name: string = "Graph Name" + Math.random();
+    const nodes: Node[] = this.graphService._nodes;
+    const edges: Edge[] = this.graphService._edges;
+
+    const graphData: string = this.graphService.getGraphJson(name, nodes, edges);
+    this.graphService.saveGraph(name, graphData)
+        .subscribe(g => console.log(`Saved graph: ${g} to db`));
+  }
 }
