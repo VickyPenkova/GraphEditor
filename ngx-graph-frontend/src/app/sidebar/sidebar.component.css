@@ -22,10 +22,18 @@
   padding: 10px;
 }
 
+.icon , .icon-square {
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
 .icon {
-  width: 30px;
   border-radius: 100%;
-  box-sizing: border-box
+  width: 30px;
+}
+
+.icon-square {
+  width: 25px;
 }
 
 .slim-sidebar a:hover {
