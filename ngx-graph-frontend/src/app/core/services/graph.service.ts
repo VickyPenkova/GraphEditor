@@ -1,9 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Node, Edge } from '@swimlane/ngx-graph';
-import { Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Node, Edge } from "@swimlane/ngx-graph";
+import {Observable, Subject} from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import {tap} from "rxjs/operators";
+
+const httpOptions: object = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" })
+};
+const saveGraphUrl: string = "http://localhost:8090";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class GraphService {
 
@@ -13,18 +20,20 @@ export class GraphService {
   private _nodesObservable: Subject<Node[]> = new Subject<Node[]> ();
   private _edgesObservable: Subject<Edge[]> = new Subject<Edge[]> ();
 
-  constructor() {}
+  constructor(
+      private http: HttpClient
+  ) {}
 
-  addNode(node:Node) : void {
-    console.log("Pushing node: " + node)
+  addNode(node:Node): void {
+    console.log("Pushing node: " + node);
     this.nodes.push(node);
     this._nodesObservable.next(this.nodes);
   }
 
-  addEdge(edge:Edge) : void {
+  addEdge(edge:Edge): void {
     if(this.edgeExists(edge)) {
       console.log("Edge: " + edge + " already exists.");
-      return
+      return;
     }
 
     console.log("Pushing edge: " + edge);
@@ -49,7 +58,7 @@ export class GraphService {
     this._edgesObservable.next(this.edges);
   }
 
-  private edgeExists(edge: Edge) : boolean {
+  private edgeExists(edge: Edge): boolean {
     for(let e of this.edges) {
       if(e.source == edge.source
         && e.target == edge.target) {
@@ -93,6 +102,20 @@ export class GraphService {
       }
     }
     this._edgesObservable.next(this.edges);
+  }
+
+  getGraphJson(name: string, nodes: Node[], edges: Edge[]): string {
+    return JSON.stringify({
+      "nodes": nodes,
+      "edges": edges
+    });
+  }
+
+  saveGraph(name: string, graphJson: string): Observable<any> {
+    const url: string = saveGraphUrl + `?graphName="${name}"`;
+    console.log(`HERE: ${url}`);
+    return this.http.post<any>(url, graphJson, httpOptions)
+        .pipe(tap(graph => console.log(graph)));
   }
 
   get nodesObservable(): Subject<Node[]> {

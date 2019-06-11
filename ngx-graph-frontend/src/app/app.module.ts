@@ -11,9 +11,10 @@ import { ColorPickerComponent } from "./sidebar/color-picker/color-picker.compon
 import { ItemEditorComponent } from "./sidebar/item-editor/item-editor.component";
 import { MenubarComponent } from "./menubar/menubar.component";
 import { AnotateTextComponent } from "./anotate-text/anotate-text.component";
-import { GraphEditorComponent } from './graph-editor/graph-editor.component';
+import { GraphEditorComponent } from "./graph-editor/graph-editor.component";
 import { RouterModule, Routes } from "@angular/router";
 import { GraphRendererComponent } from "./graph-renderer/graph-renderer.component";
+import {HttpClientModule} from "@angular/common/http";
 
 const routes: Routes = [
   { path: "", component: GraphEditorComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
     MaterialModule,
     NgxGraphModule,
     CoreModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
   declarations: [
