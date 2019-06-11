@@ -7,11 +7,11 @@
   >
   <mat-select
     placeholder="Layout"
-    [ngModel]="layout"
-    (ngModelChange)="setLayout($event)"
-    name="layout"
+    [ngModel]="this.layoutService.layoutName"
+    (ngModelChange)="this.layoutService.setLayout($event)"
+    name="this.layoutService.layoutName"
   >
-    <mat-option *ngFor="let l of layouts" [value]="l.value">
+    <mat-option *ngFor="let l of this.layoutService.layouts" [value]="l.value">
       {{ l.label }}
     </mat-option>
   </mat-select>
