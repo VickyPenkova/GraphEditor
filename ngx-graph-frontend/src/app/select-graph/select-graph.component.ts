@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphService, GraphDTO } from '../core/services/graph.service';
+import { ItemEditService } from '../core/services/item-edit.service';
 
 @Component({
   selector: 'app-select-graph',
@@ -11,7 +12,8 @@ export class SelectGraphComponent implements OnInit {
   private graphs: GraphDTO[] = [];
   private currentGraphIdx: number;
   
-  constructor(private graphService:GraphService) { }
+  constructor(private graphService:GraphService,
+            private itemEditService: ItemEditService) { }
 
   ngOnInit() {
     this.graphs = this.graphService.graphs;
@@ -29,6 +31,7 @@ export class SelectGraphComponent implements OnInit {
   onSelect(event):void {
     const graphName = event.target.value;
     this.graphService.setGraph(graphName);
+    this.itemEditService.closeAll();
   }
 
 }

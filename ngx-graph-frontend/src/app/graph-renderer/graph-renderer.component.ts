@@ -9,6 +9,7 @@ import { FormControl } from '@angular/forms';
 import { EdgeService } from '../core/services/edge.service';
 import { ItemEditService } from '../core/services/item-edit.service';
 import { LayoutService } from '../core/services/layout.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-graph-renderer',
@@ -26,11 +27,14 @@ export class GraphRendererComponent implements OnInit {
 
   layout: String;
 
+  private _mode: boolean;
+
   constructor(private graphService: GraphService,
               private nodeService: NodeService,
               private edgeService: EdgeService,
               private itemEditService: ItemEditService,
-              private layoutService: LayoutService) {
+              private layoutService: LayoutService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -63,16 +67,28 @@ export class GraphRendererComponent implements OnInit {
     this.layoutService.layout.subscribe(l => {
       this.setLayout(l);
     });
+
+    if (this.router.url.indexOf("annotate") !== -1) {
+      this._mode = false;
+    } else {
+      this._mode = true;
+    }
   }
 
-  name = 'NGX-Graph Demo';
+  public clickNode(event, id): void {
+    if (this._mode === true) {
+      this.clickNodeBuild(event,id);
+    }
+  }
 
-  //nodes: Node[] = nodes;
+  public clickEdge(event, id): void {
+    if (this._mode) {
+      this.clickEdgeBuild(event,id);
+    }
+  }
+
   clusters: ClusterNode[] = [];
 
-  //links: Edge[] = links;
-
-  // line interpolation
   curveType: string = 'Bundle';
   curve: any = shape.curveLinear;
   interpolationTypes = [
@@ -101,7 +117,7 @@ export class GraphRendererComponent implements OnInit {
   autoCenter: boolean = false; 
   center$: Subject<boolean> = new Subject();
    
-  setInterpolationType(curveType) {
+  private setInterpolationType(curveType) {
     this.curveType = curveType;
     if (curveType === 'Bundle') {
       this.curve = shape.curveBundle.beta(1);
@@ -134,11 +150,12 @@ export class GraphRendererComponent implements OnInit {
       this.curve = shape.curveStepBefore;
     }
   }
-  fitGraph() {
+
+  private fitGraph() {
     this.zoomToFit$.next(true)
   }
 
-  setLayout(layoutName: String): void {
+  private setLayout(layoutName: String): void {
     const layout = this.layoutService.layouts.find(l => l.value === layoutName);
     this.layout = layoutName;
     if (!layout.isClustered) {
@@ -148,7 +165,7 @@ export class GraphRendererComponent implements OnInit {
     }
   }
 
-  clickNode(event, id) {
+  private clickNodeBuild(event, id) {
     if (this.edgeService.addingEdge){
       this.edgeService.addNodeToEdge(id);
     } else {
@@ -156,16 +173,16 @@ export class GraphRendererComponent implements OnInit {
     }
   }
 
-  openNodeForEditting(id) {
+  private openNodeForEditting(id) {
     let node:Node = this.graphService.getNodeById(id);
     this.itemEditService.openItemForEditting(node);
   }
 
-  clickEdge(event, id) {
+  private clickEdgeBuild(event, id) {
     this.openEdgeForEditting(id);
   }
 
-  openEdgeForEditting(id) {
+  private openEdgeForEditting(id) {
     let edge:Edge = this.graphService.getEdgeById(id);
     this.itemEditService.openItemForEditting(edge);
   }

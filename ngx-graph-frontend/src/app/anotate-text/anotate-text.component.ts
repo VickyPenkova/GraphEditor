@@ -13,7 +13,7 @@ export class AnotateTextComponent implements OnInit {
   displayedText: String = "";
   markedWord: String;
   nodeLabelDict = {};
-  constructor(private annotateTextService: AnnotateTextService) {}
+  constructor(private annotateTextService: AnnotateTextService) { }
 
   ngOnInit() {
     this.annotateTextService.wordsInText.subscribe(e => {

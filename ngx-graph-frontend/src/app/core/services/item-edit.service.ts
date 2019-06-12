@@ -56,4 +56,9 @@ export class ItemEditService {
   get itemsOpenForEditting():any[] {
     return this._itemsOpenForEditting;
   }
+
+  public closeAll(): void {
+    this._itemsOpenForEditting = [];
+    this._itemsOpenForEdittingObservable.next(this._itemsOpenForEditting);
+  }
 }
