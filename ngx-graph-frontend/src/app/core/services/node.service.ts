@@ -20,7 +20,8 @@ export class NodeService {
       dimension: {width: this.width, height: this.height},
       meta: {
         forceDimensions: true,
-        color: this.colorLuminance(this.color, this.getRandomArbitrary(-0.2, 0.2))
+        color: this.colorLuminance(this.color, this.getRandomArbitrary(-0.2, 0.2)),
+        offset: -1
       },
       position:{
         x: 0,
@@ -35,13 +36,15 @@ export class NodeService {
   }
 
   // TODO: reuse addNode
-  addNodeWithLabel(lbl:string):string {
+  public addLinkedNode(lbl:string, o:number, h:string):string {
     let nextId = this.graphService.nodes.length + 1;
     let node: Node = {
       dimension: {width: this.width, height: this.height},
       meta: {
         forceDimensions: true,
-        color: this.colorLuminance(this.color, this.getRandomArbitrary(-0.2, 0.2))
+        color: this.colorLuminance(this.color, this.getRandomArbitrary(-0.2, 0.2)),
+        offset: o,
+        fileHash: h
       },
       position:{
         x: 0,

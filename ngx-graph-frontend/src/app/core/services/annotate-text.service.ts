@@ -15,26 +15,55 @@ let a ={
     }
   ]
 }*/
+export class IndexedWord {
+  str: String;
+  idx: number;
+}
 
 @Injectable({
   providedIn: "root"
 })
 export class AnnotateTextService {
-  private _wordsInText: Subject<String[]> = new Subject<String[]>();
+  private _wordsInText: IndexedWord [] = []
+  //private _wordsInTextObservable: Subject<IndexedWord[]> = new Subject<IndexedWord[]>();
 
   private _cl: boolean = false;
   private _clicked: Subject<boolean> = new Subject<boolean>();
 
+  private _coloredWords: number[] = [];
+
+  _words:String = "";
+  _wordsObservable:Subject<String> = new Subject<String>();
+
   constructor() {}
 
   setWords(words: string): void {
-    this._wordsInText.next(words.split(" "));
+    let wordsArr = words.split("");
+    let indexedWordsArr: IndexedWord[] = []
+
+    let i = 0;
+    for(let word of wordsArr) {
+      let indexedWord: IndexedWord = new IndexedWord();
+      indexedWord.str = word;
+      indexedWord.idx = i;
+
+      indexedWordsArr.push(indexedWord);
+
+      i+=word.length;
+    }
+
+    this._words = words;
+    this._wordsInText = indexedWordsArr;
+    this._wordsObservable.next(words);
+
+    //alert(this._wordsInText)
+    //this._wordsInTextObservable.next(indexedWordsArr);
   }
 
-  get wordsInText(): Subject<String[]> {
-    // console.log(this._wordsInText);
-    return this._wordsInText;
-  }
+  //get wordsInTextObservable(): Subject<IndexedWord[]> {
+    // console.log(this._wordsInTextObservable);
+  //  return this._wordsInTextObservable;
+ // }
 
   click(): void {
     this._cl = !this._cl;
@@ -44,4 +73,25 @@ export class AnnotateTextService {
   get clicked(): Subject<boolean> {
     return this._clicked;
   }
+
+  get wordsInText(): IndexedWord [] {
+    return this._wordsInText
+  }
+
+  set wordsInText(words:IndexedWord []) {
+    this._wordsInText = words;
+  }
+
+  get coloredWords(): number[] {
+    return this._coloredWords;
+  }
+
+  set coloredWords(cw : number[]) {
+    this._coloredWords = cw;
+  }
+
+  //updateWordsInTextObservable(ddta) {
+  //  this.wordsInTextObservable.next(ddta);
+ // }
+
 }

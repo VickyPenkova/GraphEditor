@@ -28,8 +28,14 @@
             id="containerForFileInput"
             class="output-text-container handleOverflow"
             (mouseup)="handleTextSelection($event)"
-            [innerHTML]="displayedText"
+            
           >
+          <!-- [innerHTML]="displayedText" -->
+          <span *ngFor="let l of this.dta; let i = index"
+          [attr.id]="l.idx"
+          [ngClass]="{markedWrd: shouldColor(i) == true}"
+          >{{l.str}}</span>
+
           </div>
         </div>
       </div>
@@ -53,20 +59,6 @@
         <!-- put graph editor here? -->
         <div class="col-lg-12">
           <app-graph-renderer> </app-graph-renderer>
-          <div class="simulate">
-            <p id="node1">
-              I am simulating a graph node
-            </p>
-            <p id="node2">
-              Me too
-            </p>
-            <p id="node3">
-              Me three
-            </p>
-            <p id="node4">
-              Me four
-            </p>
-          </div>
         </div>
       </div>
     </div>

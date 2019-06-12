@@ -89,11 +89,16 @@ hr {
   color: #282828;
   padding: 8px 20px;
 }
-span {
-  padding-left: 15px;
-}
+
 span.used {
   color: red !important;
   font-size: 32px;
   background-color: red !important;
+}
+
+.markedWrd {
+  background-color: #282828;
+  color : #a0be56;
+  border-radius: 5px;
+  padding: 2px;
 }

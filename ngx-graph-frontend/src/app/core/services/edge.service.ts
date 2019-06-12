@@ -54,13 +54,19 @@ export class EdgeService {
   }
 
   private s:string;
+  private o:number;
+  private h:string;
 
-  public addSource(name:string): void {
-    this.s = name;
+  public addSource(label:string, offset:number, fileHash:string): void {
+    this.s = label;
+    this.o = offset;
+    this.h = fileHash;
   }
 
   public addTarget(targetId:string): void {
-    let newNodeId: string = this.nodeService.addNodeWithLabel(this.s);
+    let newNodeId: string = this.nodeService.addLinkedNode(this.s, this.o, this.h);
+
+    let nodd = this.graphService.getNodeById(newNodeId);
 
     let nextId = this.graphService.edges.length + 1;
     let edge:Edge = {
