@@ -1,0 +1,7 @@
+<select (change)="onSelect($event)" class="form-control" id="sel1">
+  <option *ngFor="let g of this.graphs" 
+    [ngValue]="g.name"
+    [selected]="graphs[currentGraphIdx].name == g.name">
+    {{ g.name }}
+  </option>
+</select>

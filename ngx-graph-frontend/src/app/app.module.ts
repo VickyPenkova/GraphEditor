@@ -15,9 +15,10 @@ import { GraphEditorComponent } from "./graph-editor/graph-editor.component";
 import { RouterModule, Routes } from "@angular/router";
 import { GraphRendererComponent } from "./graph-renderer/graph-renderer.component";
 import {HttpClientModule} from "@angular/common/http";
+import { SelectGraphComponent } from './select-graph/select-graph.component';
 
 const routes: Routes = [
-  { path: "", component: GraphEditorComponent },
+  { path: "", component: GraphEditorComponent, pathMatch: 'full'},
   { path: "annotate", component: AnotateTextComponent }
 ];
 
@@ -41,7 +42,8 @@ const routes: Routes = [
     MenubarComponent,
     AnotateTextComponent,
     GraphEditorComponent,
-    GraphRendererComponent
+    GraphRendererComponent,
+    SelectGraphComponent
   ],
   bootstrap: [AppComponent],
   exports: [RouterModule]

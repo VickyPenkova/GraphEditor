@@ -24,13 +24,25 @@ export class SidebarComponent implements OnInit {
     this.itemEditService.observeItemsOpenForEditting.subscribe(itemsOpenForEditting => {
       this.itemsOpenForEditting = itemsOpenForEditting;
     });
+
+    this.itemsOpenForEditting = this.itemEditService.itemsOpenForEditting;
   }
 
   downloadGraph() {
     saveAs(new Blob([this.graphService.getGraphJson()], {type: 'application/json' }), this.graphService.graphName);
   }
 
-  saveGraph() {
-    this.graphService.saveGraph().subscribe(g => console.log(`Saved graph: ${g} to db`));
+  saveGraph() :void {
+    let name = this.graphService.graphName.toString()
+    if (name == "WIP Graph"){
+      name = prompt("Enter graph name.", "e.g. graph 1");
+      for (let g of this.graphService.graphs) {
+        if(name == g.name) {
+          alert("Graph " + name + " already exists. To modify it, please select it from the dropdown.")
+          return;
+        }
+      }  
+    }
+    this.graphService.saveGraph(name);
   }
 }

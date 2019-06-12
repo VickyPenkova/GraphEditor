@@ -11,7 +11,6 @@ export class EdgeService {
   private _addingEdge:boolean = false;
   private _sourceId: string = null;
   private _targetId: string = null;
-  private id: number = 0;
 
   constructor(private graphService: GraphService) { }
 
@@ -27,6 +26,7 @@ export class EdgeService {
   }
 
   addNodeToEdge(id:string): void {
+    let nextId = this.graphService.edges.length + 1;
     if (this._sourceId == null) {
       this._sourceId = id;
     } else if (this._sourceId == id) {
@@ -35,14 +35,14 @@ export class EdgeService {
       this._targetId = id;
       
       let edge:Edge = {
-        id: "edge" + (this.id++).toString(),
+        id: "edge" + (nextId).toString(),
         source: this._sourceId,
         target: this._targetId,
         data: {
           color: "#3E6158",
           stroke_width: 2
         },
-        label: "Edge " + (this.id).toString()
+        label: "Edge " + (nextId).toString()
       }
 
       this.graphService.addEdge(edge);

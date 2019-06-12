@@ -34,13 +34,25 @@ export class GraphRendererComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.nodes = this.graphService.nodes;
+    this.links = this.graphService.edges;
+
+    this.setInterpolationType(this.curveType);
+    this.fitGraph();
+    this.setLayout(this.layoutService.layoutName);
+    this.panToNode$.next("node1");
+    
+    this.update$.next(true);
+
     this.graphService.nodesObservable.subscribe(ns => {
       this.nodes = ns;
-      this.update$.next(true)
-
+      console.log(ns);
+      console.log(this.nodes);
+      
       if(ns.length > 0) {
         this.panToNode$.next(ns[ns.length -1].id)
       }
+      this.update$.next(true)
     });
 
     this.graphService.edgesObservable.subscribe(es => {
@@ -51,15 +63,12 @@ export class GraphRendererComponent implements OnInit {
     this.layoutService.layout.subscribe(l => {
       this.setLayout(l);
     });
-  
-    this.setInterpolationType(this.curveType);
-    this.fitGraph();
   }
 
   name = 'NGX-Graph Demo';
 
   //nodes: Node[] = nodes;
-  clusters: ClusterNode[] = clusters;
+  clusters: ClusterNode[] = [];
 
   //links: Edge[] = links;
 
@@ -135,7 +144,7 @@ export class GraphRendererComponent implements OnInit {
     if (!layout.isClustered) {
       this.clusters = undefined;
     } else {
-      this.clusters = clusters;
+      this.clusters = [];
     }
   }
 

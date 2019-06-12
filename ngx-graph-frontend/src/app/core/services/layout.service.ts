@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class LayoutService {
 
-  private _layoutName: String = 'colaForceDirected';
+  private _layoutName: String = 'dagre';
   private _layout: Subject<String> = new Subject<String> ();
 
   private _layouts: any[] = [
@@ -19,11 +19,11 @@ export class LayoutService {
       value: 'dagreCluster',
       isClustered: true,
     },
-    {
+    /*{
       label: 'Cola Force Directed',
       value: 'colaForceDirected',
       isClustered: true,
-    },
+    },*/
     {
       label: 'D3 Force Directed',
       value: 'd3ForceDirected',
@@ -38,7 +38,6 @@ export class LayoutService {
     this._layout.next(name);
     this._layoutName = name;
   }
-
 
   get layouts(): any[] {
     return this._layouts;

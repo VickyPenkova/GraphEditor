@@ -15,6 +15,7 @@ export class AnotateTextComponent implements OnInit {
   markedId: String;
   nodeLabelDict = {};
   nodeWordIdDict = new Map();
+
   constructor(private annotateTextService: AnnotateTextService) {}
 
   ngOnInit() {
@@ -47,6 +48,7 @@ export class AnotateTextComponent implements OnInit {
         );
       }
     });
+    
   }
 
   //read the uploaded file

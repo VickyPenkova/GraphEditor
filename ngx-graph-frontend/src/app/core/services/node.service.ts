@@ -9,7 +9,6 @@ import { EdgeService } from './edge.service';
 })
 export class NodeService {
 
-  private id:number = 0;
   private width:number = 100;
   private height:number = 100;
   private color:string = "#A1C057";
@@ -18,6 +17,7 @@ export class NodeService {
               private edgeService: EdgeService) { }
 
   addNode():void {
+    let nextId = this.graphService.nodes.length + 1;
     let node: Node = {
       dimension: {width: this.width, height: this.height},
       meta: {
@@ -28,8 +28,8 @@ export class NodeService {
         x: 0,
         y: 0
       },
-      id: "node"+(this.id++).toString(),
-      label: 'Node ' + (this.id).toString()
+      id: "node"+(nextId).toString(),
+      label: 'Node ' + (nextId).toString()
     }
     
     this.graphService.addNode(node);
