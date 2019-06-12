@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { AnnotateTextService } from "../core/services/annotate-text.service";
 import * as $ from "jquery";
 import { checkAndUpdateTextDynamic } from "@angular/core/src/view/text";
+import { element } from "@angular/core/src/render3";
 
 @Component({
   selector: "app-anotate-text",
@@ -18,6 +19,7 @@ export class AnotateTextComponent implements OnInit {
   ngOnInit() {
     this.annotateTextService.wordsInText.subscribe(e => {
       this.arrayOfWordsInText = e;
+      this.displayedText = "";
       this.displayedText = this.arrayOfWordsInText.join(" ");
     });
 
@@ -37,8 +39,19 @@ export class AnotateTextComponent implements OnInit {
   //read the uploaded file
   changeOfFile(event) {
     //read the file content
+
     var fileReader = new FileReader();
     fileReader.onload = e => {
+      var child = document.getElementById("containerForFileInput")
+        .lastElementChild;
+      while (child) {
+        document.getElementById("containerForFileInput").removeChild(child);
+        child = document.getElementById("containerForFileInput")
+          .lastElementChild;
+      }
+      this.displayedText = "";
+      this.arrayOfWordsInText.length = 0;
+      this.annotateTextService.setWords("");
       var data = fileReader.result;
       this.annotateTextService.setWords(data.toString());
     };
@@ -107,11 +120,13 @@ export class AnotateTextComponent implements OnInit {
         }
         nodeToBeRemoved.parentNode.removeChild(nodeToBeRemoved);
       }
-      document.getElementById("tempSelected").style.backgroundColor = "#282828";
-      document.getElementById("tempSelected").style.color = "#a0be56";
+      document.getElementById("tempSelected").style.backgroundColor = "";
+      document.getElementById("tempSelected").style.color = "#000000";
+      document.getElementById("tempSelected").style.border =
+        "1px solid #a0be56";
       document.getElementById("tempSelected").style.borderRadius = "5px";
       document.getElementById("tempSelected").style.padding = "2px";
-      document.getElementById("tempSelected").style.userSelect = "none";
+      //document.getElementById("tempSelected").style.userSelect = "none";
       document.getElementById("tempSelected").id = idToBe;
     })();
   }
