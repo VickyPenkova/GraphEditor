@@ -10,6 +10,7 @@ import { EdgeService } from '../core/services/edge.service';
 import { ItemEditService } from '../core/services/item-edit.service';
 import { LayoutService } from '../core/services/layout.service';
 import { Router } from '@angular/router';
+import { AnnotateTextService } from '../core/services/annotate-text.service';
 
 @Component({
   selector: 'app-graph-renderer',
@@ -34,7 +35,8 @@ export class GraphRendererComponent implements OnInit {
               private edgeService: EdgeService,
               private itemEditService: ItemEditService,
               private layoutService: LayoutService,
-              private router: Router) {
+              private router: Router,
+              private annotateTextService : AnnotateTextService) {
   }
 
   ngOnInit() {
@@ -78,6 +80,8 @@ export class GraphRendererComponent implements OnInit {
   public clickNode(event, id): void {
     if (this._mode === true) {
       this.clickNodeBuild(event,id);
+    } else {
+      this.clickNodeAnnotate(event, id);
     }
   }
 
@@ -171,6 +175,11 @@ export class GraphRendererComponent implements OnInit {
     } else {
       this.openNodeForEditting(id);
     }
+  }
+
+  private clickNodeAnnotate(event, id) {
+    this.edgeService.addTarget(id);
+    this.annotateTextService.click();
   }
 
   private openNodeForEditting(id) {

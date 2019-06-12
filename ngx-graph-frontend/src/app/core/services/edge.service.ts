@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Node, Edge } from '@swimlane/ngx-graph';
 import { GraphService } from './graph.service';
 import { Subject } from 'rxjs';
+import { NodeService } from './node.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class EdgeService {
   private _sourceId: string = null;
   private _targetId: string = null;
 
-  constructor(private graphService: GraphService) { }
+  constructor(private graphService: GraphService,
+              private nodeService: NodeService) { }
 
   get addingEdge():boolean {
     return this._addingEdge;
@@ -49,6 +51,30 @@ export class EdgeService {
 
       this._reset();
     }
+  }
+
+  private s:string;
+
+  public addSource(name:string): void {
+    this.s = name;
+  }
+
+  public addTarget(targetId:string): void {
+    let newNodeId: string = this.nodeService.addNodeWithLabel(this.s);
+
+    let nextId = this.graphService.edges.length + 1;
+    let edge:Edge = {
+      id: "edge" + (nextId).toString(),
+      source: newNodeId,
+      target: targetId,
+      data: {
+        color: "#3E6158",
+        stroke_width: 2,
+        label: "Edge " + (nextId).toString()
+      }
+    }
+
+    this.graphService.addEdge(edge);
   }
 
   private _reset():void {

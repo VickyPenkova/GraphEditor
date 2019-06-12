@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { AnnotateTextService } from "../core/services/annotate-text.service";
 import * as $ from "jquery";
 import { checkAndUpdateTextDynamic } from "@angular/core/src/view/text";
+import { NodeService } from "../core/services/node.service";
+import { EdgeService } from "../core/services/edge.service";
 
 @Component({
   selector: "app-anotate-text",
@@ -13,12 +15,18 @@ export class AnotateTextComponent implements OnInit {
   displayedText: String = "";
   markedWord: String;
   nodeLabelDict = {};
-  constructor(private annotateTextService: AnnotateTextService) { }
+
+  constructor(private annotateTextService: AnnotateTextService,
+              private edgeService: EdgeService) { }
 
   ngOnInit() {
     this.annotateTextService.wordsInText.subscribe(e => {
       this.arrayOfWordsInText = e;
       this.displayedText = this.arrayOfWordsInText.join(" ");
+    });
+
+    this.annotateTextService.clicked.subscribe(c => {
+      this.c();
     });
 
     //display the name of the selected file in the label
@@ -85,6 +93,16 @@ export class AnotateTextComponent implements OnInit {
 
   handleTextSelection(event) {
     this.markedWord = this.getSelectionText().toString();
+    this.edgeService.addSource(this.markedWord.toString());
+  }
+
+  public c() {
+    document.getElementById("tempSelected").style.backgroundColor = "#282828";
+    document.getElementById("tempSelected").style.color = "#a0be56";
+    document.getElementById("tempSelected").style.borderRadius = "5px";
+    document.getElementById("tempSelected").style.padding = "2px";
+    document.getElementById("tempSelected").style.userSelect = "none";
+    document.getElementById("tempSelected").id = "notSelected";
   }
 
   changeTextOfNode(event) {
