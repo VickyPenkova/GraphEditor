@@ -124,12 +124,8 @@ export class GraphService {
     this.updateEdges();
   }
 
-  getGraphJson(): string {
-    return JSON.stringify({
-      "name": this._graphs[this._currentGraph].name,
-      "nodes": this._graphs[this._currentGraph].graph.nodes,
-      "edges": this._graphs[this._currentGraph].graph.edges
-    });
+  getGraphDTO(): GraphDTO {
+    return this.graphs[this.currentGraph];
   }
 
   saveGraph(name:string): void {

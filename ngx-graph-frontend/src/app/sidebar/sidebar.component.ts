@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
   }
 
   downloadGraph() {
-    saveAs(new Blob([this.graphService.getGraphJson()], {type: 'application/json' }), this.graphService.graphName);
+    saveAs(new Blob([JSON.stringify(this.graphService.getGraphDTO())], {type: 'application/json' }), this.graphService.graphName);
   }
 
   saveGraph() :void {
