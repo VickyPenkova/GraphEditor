@@ -40,9 +40,9 @@ export class EdgeService {
         target: this._targetId,
         data: {
           color: "#3E6158",
-          stroke_width: 2
-        },
-        label: "Edge " + (nextId).toString()
+          stroke_width: 2,
+          label: "Edge " + (nextId).toString()
+        }
       }
 
       this.graphService.addEdge(edge);

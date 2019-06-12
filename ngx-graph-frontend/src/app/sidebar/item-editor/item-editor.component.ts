@@ -28,12 +28,14 @@ export class ItemEditorComponent implements OnInit {
       this.isNode = true;
       this._color = this.item.meta.color;
       this._dim = this.item.dimension.width;
+      this._label = this.item.label;
     } else {
       this.isNode = false;
       this._color = this.item.data.color;
       this._dim = this.item.data.stroke_width
+      this._label = this.item.data.label;
     }
-    this._label = this.item.label;
+    
   }
 
   delete(): void {
@@ -61,7 +63,6 @@ export class ItemEditorComponent implements OnInit {
   }
 
   private _update():void {
-    this.item.label = this._label;
     if (this.isNode) {
       let s: number = 5 * this._scale;
       if (this.item.dimension.width + s > 0) {
@@ -71,6 +72,7 @@ export class ItemEditorComponent implements OnInit {
       } else {
         console.log("Cannot scale to smaller than 1 px.")
       }
+      this.item.label = this._label;
       this.item.meta.color = this._color;
       this.graphService.updateNodeById(this.item.id, this.item);
     } else {
@@ -80,6 +82,7 @@ export class ItemEditorComponent implements OnInit {
       } else {
         console.log("Cannot scale to smaller than 1 px.")
       }
+      this.item.data.label = this._label;
       this.item.data.color = this._color;
       this.graphService.updateEdgeById(this.item.id, this.item);
     }
