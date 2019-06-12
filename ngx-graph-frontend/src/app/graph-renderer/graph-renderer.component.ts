@@ -63,12 +63,6 @@ export class GraphRendererComponent implements OnInit {
     this.layoutService.layout.subscribe(l => {
       this.setLayout(l);
     });
-<<<<<<< HEAD
-=======
-  
-    this.setInterpolationType(this.curveType);
-    this.fitGraph();
->>>>>>> origin/sveti
   }
 
   name = 'NGX-Graph Demo';
