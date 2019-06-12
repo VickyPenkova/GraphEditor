@@ -35,6 +35,9 @@ export class SidebarComponent implements OnInit {
     let name = this.graphService.graphName.toString()
     if (name == "WIP Graph"){
       name = prompt("Enter graph name.", "e.g. graph 1");
+      if (name == undefined){
+        return
+      }
       for (let g of this.graphService.graphs) {
         if(name == g.name) {
           alert("Graph " + name + " already exists. To modify it, please select it from the dropdown.")

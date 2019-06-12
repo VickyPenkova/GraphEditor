@@ -106,19 +106,19 @@ export class GraphService {
     return null;
   }
 
-  public updateNodeById(id:string, node:Node) {
+  public updateNodeById(id:string, n:Node) {
     for(let node of this._graphs[this._currentGraph].graph.nodes) {
       if(node.id == id) {
-        node = node;
+        node = n;
       }
     }
     this.updateNodes();
   }
 
-  public updateEdgeById(id:string, node:Edge) {
+  public updateEdgeById(id:string, e:Edge) {
     for(let edge of this._graphs[this._currentGraph].graph.edges) {
       if(edge.id == id) {
-        edge = edge;
+        edge = e;
       }
     }
     this.updateEdges();
