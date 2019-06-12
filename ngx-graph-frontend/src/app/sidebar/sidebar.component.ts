@@ -7,12 +7,11 @@ import { ItemEditService } from '../core/services/item-edit.service';
 import { saveAs } from 'file-saver';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  selector: "app-sidebar",
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.css"]
 })
 export class SidebarComponent implements OnInit {
-
   private itemsOpenForEditting: any[];
 
   constructor(private nodeService: NodeService,

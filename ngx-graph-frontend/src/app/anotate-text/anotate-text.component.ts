@@ -12,31 +12,13 @@ export class AnotateTextComponent implements OnInit {
   arrayOfWordsInText: String[] = [];
   displayedText: String = "";
   markedWord: String;
-  markedId: String;
   nodeLabelDict = {};
-  nodeWordIdDict = new Map();
-
   constructor(private annotateTextService: AnnotateTextService) {}
 
   ngOnInit() {
-    this.displayedText.toString();
-
     this.annotateTextService.wordsInText.subscribe(e => {
       this.arrayOfWordsInText = e;
-      var inserHere = document.getElementById("anchor");
-      //insert spans with each word in text after the anchor
-      //each span has the id of the corresponding number of the word in the text
-      e.forEach(function(k, i) {
-        var newItem = document.createElement("span");
-        newItem.innerHTML = k.toString();
-        inserHere.appendChild(newItem);
-        newItem.setAttribute("node-attached", "none");
-        newItem.setAttribute("id", i.toString());
-        //insret id-less spans with space
-        newItem = document.createElement("span");
-        newItem.innerHTML = "&nbsp";
-        inserHere.appendChild(newItem);
-      });
+      this.displayedText = this.arrayOfWordsInText.join(" ");
     });
 
     //display the name of the selected file in the label
@@ -48,7 +30,8 @@ export class AnotateTextComponent implements OnInit {
         );
       }
     });
-    
+
+    $(".simulate p").click(this.changeTextOfNode);
   }
 
   //read the uploaded file
@@ -63,68 +46,71 @@ export class AnotateTextComponent implements OnInit {
     if (file) {
       fileReader.readAsText(file, "CP1251");
     }
-    while (document.getElementById("anchor").firstChild) {
-      document
-        .getElementById("anchor")
-        .removeChild(document.getElementById("anchor").firstChild);
-    }
   }
   //get selected text
   getSelectionText() {
-    var text = "";
+    var text = window.getSelection();
     if (window.getSelection) {
-      text = window.getSelection().toString();
+      if (document.getElementById("tempSelected")) {
+        var nodeToBeRemoved = document.getElementById("tempSelected");
+        while (nodeToBeRemoved.firstChild) {
+          nodeToBeRemoved.parentNode.insertBefore(
+            nodeToBeRemoved.firstChild,
+            nodeToBeRemoved
+          );
+        }
+        nodeToBeRemoved.parentNode.removeChild(nodeToBeRemoved);
+      }
+      var start = text.anchorOffset;
+      var end = text.focusOffset - text.anchorOffset;
+
+      var range = window.getSelection().getRangeAt(0);
+
+      var selectionContents = range.extractContents();
+      var span = document.createElement("span");
+      span.id = "tempSelected";
+      span.appendChild(selectionContents);
+
+      span.style.backgroundColor = "#9DB660";
+      span.style.color = "black";
+
+      range.insertNode(span);
     } else if (
       document.getSelection() &&
       document.getSelection().type != "Control"
     ) {
-      text = document.getSelection().toString();
     }
     return text;
   }
 
   handleTextSelection(event) {
-    this.markedWord = this.getSelectionText();
-    this.markedId = event.target.id;
+    this.markedWord = this.getSelectionText().toString();
   }
 
   changeTextOfNode(event) {
-    var selectedNodeID = event.target.id;
-    event.target.innerHTML = this.markedWord.toString();
-    this.nodeLabelDict[selectedNodeID] = this.markedWord.toString();
+    var selectedNodeID = event.currentTarget.id;
+    event.currentTarget.innerHTML = document.getElementById(
+      "tempSelected"
+    ).innerHTML;
     var that = this;
+    var idToBe = selectedNodeID + "Label";
     (function() {
-      console.log(
-        "Does the dic have " +
-          selectedNodeID +
-          " -> " +
-          that.nodeWordIdDict[selectedNodeID]
-      );
-      console.log(
-        "What we have in the dic : " + that.nodeWordIdDict[selectedNodeID]
-      );
-      if (that.nodeWordIdDict[selectedNodeID] !== undefined) {
-        console.log("We have already a word for " + selectedNodeID);
-        console.log("I am in");
-        console.log(
-          "The id of the word is " +
-            document.getElementById(that.nodeWordIdDict[selectedNodeID])
-        );
-        document
-          .getElementById(that.nodeWordIdDict[selectedNodeID])
-          .classList.remove("used");
+      if (document.getElementById(idToBe) !== null) {
+        document.getElementById(idToBe).style.color = "";
+        //remove the span around the element
+        var nodeToBeRemoved = document.getElementById(idToBe);
+        while (nodeToBeRemoved.firstChild) {
+          nodeToBeRemoved.parentNode.insertBefore(
+            nodeToBeRemoved.firstChild,
+            nodeToBeRemoved
+          );
+        }
+        nodeToBeRemoved.parentNode.removeChild(nodeToBeRemoved);
       }
-      console.log(
-        "Adding word to nodeid " +
-          selectedNodeID +
-          " with wordid " +
-          that.markedId
-      );
-      that.nodeWordIdDict[selectedNodeID] = that.markedId;
-      document.getElementById(that.markedId.toString()).classList.add("used");
-      console.log("What we have in the dic after adding : ");
-      console.log(that.nodeWordIdDict);
-      console.log("------------End------------");
+      document.getElementById("tempSelected").style.backgroundColor = "#282828";
+      document.getElementById("tempSelected").style.color = "#a0be56";
+      document.getElementById("tempSelected").style.userSelect = "none";
+      document.getElementById("tempSelected").id = idToBe;
     })();
   }
 }
