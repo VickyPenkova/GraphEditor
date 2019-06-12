@@ -109,6 +109,8 @@ export class AnotateTextComponent implements OnInit {
       }
       document.getElementById("tempSelected").style.backgroundColor = "#282828";
       document.getElementById("tempSelected").style.color = "#a0be56";
+      document.getElementById("tempSelected").style.borderRadius = "5px";
+      document.getElementById("tempSelected").style.padding = "2px";
       document.getElementById("tempSelected").style.userSelect = "none";
       document.getElementById("tempSelected").id = idToBe;
     })();
