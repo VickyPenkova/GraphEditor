@@ -12,8 +12,7 @@ import { element } from "@angular/core/src/render3";
   styleUrls: ["./anotate-text.component.css"]
 })
 export class AnotateTextComponent implements OnInit {
-  arrayOfWordsInText: String[] = [];
-  displayedText: String = "";
+  displayedText: String;
   markedWord: String;
   nodeLabelDict = {};
 
@@ -22,10 +21,10 @@ export class AnotateTextComponent implements OnInit {
 
   ngOnInit() {
     this.annotateTextService.wordsInText.subscribe(e => {
-      this.arrayOfWordsInText = e;
-      this.displayedText = "";
-      this.displayedText = this.arrayOfWordsInText.join(" ");
+      this.displayedText = e.join(" ");
     });
+
+    this.displayedText = "";
 
     this.annotateTextService.clicked.subscribe(c => {
       this.c();
@@ -46,20 +45,8 @@ export class AnotateTextComponent implements OnInit {
 
   //read the uploaded file
   changeOfFile(event) {
-    //read the file content
-
     var fileReader = new FileReader();
     fileReader.onload = e => {
-      var child = document.getElementById("containerForFileInput")
-        .lastElementChild;
-      while (child) {
-        document.getElementById("containerForFileInput").removeChild(child);
-        child = document.getElementById("containerForFileInput")
-          .lastElementChild;
-      }
-      this.displayedText = "";
-      this.arrayOfWordsInText.length = 0;
-      this.annotateTextService.setWords("");
       var data = fileReader.result;
       this.annotateTextService.setWords(data.toString());
     };

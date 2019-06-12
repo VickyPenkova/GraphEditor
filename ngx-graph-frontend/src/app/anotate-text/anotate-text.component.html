@@ -28,8 +28,8 @@
             id="containerForFileInput"
             class="output-text-container handleOverflow"
             (mouseup)="handleTextSelection($event)"
+            [innerHTML]="displayedText"
           >
-            {{ displayedText }}
           </div>
         </div>
       </div>
