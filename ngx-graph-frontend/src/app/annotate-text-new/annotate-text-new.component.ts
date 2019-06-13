@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { AnnotationService } from "../core/services/annotation.service";
 import * as $ from "jquery";
 import { EdgeService } from "../core/services/edge.service";
+import { Subject } from "rxjs";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 
 @Component({
   selector: "app-annotate-text-new",
@@ -10,18 +12,19 @@ import { EdgeService } from "../core/services/edge.service";
 })
 export class AnnotateTextNewComponent implements OnInit {
 
-  txt:string;
+  txt:SafeHtml;
   markedWord:string;
 
   constructor(private annotationService:AnnotationService,
-              private edgeService:EdgeService) { }
+              private edgeService:EdgeService,
+              private sanitized: DomSanitizer) { }
 
   ngOnInit() {
     this.annotationService.textObservable.subscribe( t=> {
-      this.txt = t;
+      this.txt = this.sanitized.bypassSecurityTrustHtml(t)
     })
 
-    this.txt = this.annotationService.text;
+    this.txt = this.sanitized.bypassSecurityTrustHtml(this.annotationService.text);
   }
 
   changeOfFile(event) {
@@ -73,16 +76,25 @@ export class AnnotateTextNewComponent implements OnInit {
       let pd:number = 3 * this.getInnerDepth(range.cloneContents());
       span.style.padding = pd + "px"
 
+      const currentHtml = document.getElementById("containerForFileInput").innerHTML
+
       range.surroundContents(span);
-      sel.removeAllRanges();
-      sel.addRange(range);
+      //sel.removeAllRanges();
+      //sel.addRange(range);
       
       // TODO: IMPORTANT
-      let potentialHtml = document.getElementById("containerForFileInput").innerHTML
+      const potentialHtml = document.getElementById("containerForFileInput").innerHTML
 
-      $("#" + span.id).replaceWith(function () {
+      console.log("current:")
+      console.log(currentHtml)
+      console.log("potential:")
+      console.log(potentialHtml)
+
+      /*$("#" + span.id).replaceWith(function () {
         return $(this).text();
-      });
+      });*/
+
+      this.txt = this.sanitized.bypassSecurityTrustHtml(currentHtml);
 
       this.markedWord = content;
       this.edgeService.addSource(this.markedWord, span.id, this.annotationService.hash, potentialHtml);
