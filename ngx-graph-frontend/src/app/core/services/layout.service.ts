@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 })
 export class LayoutService {
 
-  private _layoutName: String = 'dagre';
+  private _layoutName: String = 'dagreCluster';
   private _layout: Subject<String> = new Subject<String> ();
 
   private _layouts: any[] = [

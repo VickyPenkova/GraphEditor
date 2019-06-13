@@ -11,6 +11,7 @@ import { ItemEditService } from '../core/services/item-edit.service';
 import { LayoutService } from '../core/services/layout.service';
 import { Router } from '@angular/router';
 import { AnnotateTextService } from '../core/services/annotate-text.service';
+import { SteinerService } from '../core/services/steiner.service';
 
 @Component({
   selector: 'app-graph-renderer',
@@ -36,7 +37,8 @@ export class GraphRendererComponent implements OnInit {
               private itemEditService: ItemEditService,
               private layoutService: LayoutService,
               private router: Router,
-              private annotateTextService : AnnotateTextService) {
+              private annotateTextService : AnnotateTextService,
+              private steinerService: SteinerService) {
   }
 
   ngOnInit() {
@@ -47,8 +49,16 @@ export class GraphRendererComponent implements OnInit {
     this.fitGraph();
     this.setLayout(this.layoutService.layoutName);
     this.panToNode$.next("node1");
-    
+
     this.update$.next(true);
+
+    this.graphService.currentGraphObservable.subscribe(g => {
+      this.steinerService.clearTerminalNodes();
+      this.clusters = [];
+    })
+
+    this.steinerService.clearTerminalNodes();
+    this.clusters = [];
 
     this.graphService.nodesObservable.subscribe(ns => {
       this.nodes = ns;
@@ -178,8 +188,25 @@ export class GraphRendererComponent implements OnInit {
   }
 
   private clickNodeAnnotate(event, id) {
-    this.edgeService.addTarget(id);
-    this.annotateTextService.click();
+    if(event.shiftKey) {
+      let nodesInSteinerTree:string[] = this.steinerService.addTerminalNode(id)
+      if (nodesInSteinerTree.length == 0 || nodesInSteinerTree[0] == undefined) {
+        this.clusters = []
+        return
+      }
+      let cluster:ClusterNode = {
+        id: 'third',
+        label: 'Steiner Tree of Selected Nodes',
+        childNodeIds: nodesInSteinerTree,
+        meta: {
+          color: "#1B6271"
+        }
+      }
+      this.clusters = [cluster]
+    } else {
+      this.edgeService.addTarget(id);
+      this.annotateTextService.click();
+    }
   }
 
   private openNodeForEditting(id) {

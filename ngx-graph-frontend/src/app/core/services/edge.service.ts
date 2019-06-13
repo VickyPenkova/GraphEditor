@@ -66,6 +66,11 @@ export class EdgeService {
   }
 
   public addTarget(targetId:string): void {
+    if(this.s === undefined) {
+      console.log("select source first.")
+      return;
+    }
+
     let newNodeId = this.uuid;
     if(this.graphService.getNodeById(this.uuid) != null){
       if(this.graphService.edgeExistsBetween(this.uuid, targetId)) {
