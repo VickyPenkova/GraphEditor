@@ -54,8 +54,10 @@ class PluginsController(BaseHTTPRequestHandler):
             self.send_response(200)
 
             self.send_header('Content-Type', 'application/json')
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
 
+            print(response)
             self.wfile.write(response.encode(encoding='utf_8'))
 
 if __name__ == '__main__':
