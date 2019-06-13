@@ -28,7 +28,7 @@ export class NodeService {
         y: 0
       },
       id: "node"+(nextId).toString(),
-      label: 'Node ' + (nextId).toString()
+      label: 'Node'
     }
     
     this.graphService.addNode(node);

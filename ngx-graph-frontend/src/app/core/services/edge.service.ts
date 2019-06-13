@@ -43,7 +43,7 @@ export class EdgeService {
         data: {
           color: "#3E6158",
           stroke_width: 2,
-          label: "Edge " + (nextId).toString()
+          label: "Edge"
         }
       }
 
@@ -76,7 +76,7 @@ export class EdgeService {
       data: {
         color: "#3E6158",
         stroke_width: 2,
-        label: "Edge " + (nextId).toString()
+        label: "Edge"
       }
     }
 

@@ -167,6 +167,7 @@ export class GraphService {
     let ns = this._graphs[this.currentGraph].graph.nodes;
     let es = this._graphs[this.currentGraph].graph.edges;
     let as = this._graphs[this.currentGraph].graph.annotations;
+    let saved_name:string = this._graphs[this.currentGraph].name.toString()
     let g = {"nodes": ns, "edges":es, "annotations": as}
 
     console.log("to save..")
@@ -178,10 +179,10 @@ export class GraphService {
       .subscribe(
         data => {
           this.retrieveAllGraphs().subscribe(graphs => {
+            this.unsaved.delete(saved_name);
             this._graphs = [this._graphs[0], ...graphs];
             this.updateGraphs();
             this.setGraph(name);
-            this.unsaved.delete(this._graphs[name].name.toString());
           })
         }, error => {
           alert("Error while saving graph.");
