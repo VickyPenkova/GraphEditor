@@ -11,7 +11,6 @@ import { ItemEditService } from '../core/services/item-edit.service';
 import { LayoutService } from '../core/services/layout.service';
 import { Router } from '@angular/router';
 import { AnnotateTextService } from '../core/services/annotate-text.service';
-import { PluginService } from '../core/services/plugin.service';
 
 @Component({
   selector: 'app-graph-renderer',
@@ -37,7 +36,6 @@ export class GraphRendererComponent implements OnInit {
               private itemEditService: ItemEditService,
               private layoutService: LayoutService,
               private router: Router,
-              private p: PluginService,
               private annotateTextService : AnnotateTextService) {
   }
 

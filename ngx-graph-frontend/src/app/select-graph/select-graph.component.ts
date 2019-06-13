@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GraphService, GraphDTO } from '../core/services/graph.service';
 import { ItemEditService } from '../core/services/item-edit.service';
+import { PluginService } from '../core/services/plugin.service';
 
 @Component({
   selector: 'app-select-graph',

@@ -1,0 +1,9 @@
+.entertext {
+    width:400px;
+    max-width:90%;
+    max-height:90%;
+}
+.annotate {
+    background-color: #e7e7e7;
+    color: black;
+}

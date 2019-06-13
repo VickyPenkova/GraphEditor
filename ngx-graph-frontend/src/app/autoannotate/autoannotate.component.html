@@ -1,0 +1,7 @@
+
+
+<mat-form-field class="entertext">
+    <mat-label>Automatic annotation. Enter text:</mat-label>
+    <textarea matInput [(ngModel)]="textauto" matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=13></textarea>
+</mat-form-field>
+<button class="annotate" type="submit" (click) = 'autoAnnotate()'>Annotate</button>
