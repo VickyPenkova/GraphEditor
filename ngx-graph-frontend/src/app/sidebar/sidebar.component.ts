@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { GraphService } from '../core/services/graph.service';
-import { Node, Edge } from '@swimlane/ngx-graph';
-import { NodeService } from '../core/services/node.service';
-import { EdgeService } from '../core/services/edge.service';
-import { ItemEditService } from '../core/services/item-edit.service';
-import { saveAs } from 'file-saver';
+import { Component, OnInit } from "@angular/core";
+import { GraphService } from "../core/services/graph.service";
+import { Node, Edge } from "@swimlane/ngx-graph";
+import { NodeService } from "../core/services/node.service";
+import { EdgeService } from "../core/services/edge.service";
+import { ItemEditService } from "../core/services/item-edit.service";
+import { saveAs } from "file-saver";
 
 @Component({
   selector: "app-sidebar",
@@ -28,7 +28,7 @@ export class SidebarComponent implements OnInit {
   }
 
   downloadGraph() {
-    saveAs(new Blob([JSON.stringify(this.graphService.getGraphDTO())], {type: 'application/json' }), this.graphService.graphName);
+    saveAs(new Blob([JSON.stringify(this.graphService.getGraphDTO())], {type: "application/json" }), this.graphService.graphName);
   }
 
   saveGraph() :void {
@@ -46,7 +46,24 @@ export class SidebarComponent implements OnInit {
         alert("Graph " + name + " already exists. To modify it, please select it from the dropdown.")
         return;
       }
-    } 
+    }
     this.graphService.saveGraph(name);
+  }
+
+  onFileChanged(event) {
+    if (event.target.files && event.target.files[0]) {
+      const fileReader: FileReader = new FileReader();
+      fileReader.readAsText(event.target.files[0], "UTF-8");
+      fileReader.onload = () => {
+        if (typeof fileReader.result === "string") {
+          const graphJson: any = JSON.parse(fileReader.result);
+          this.graphService.setGraph(graphJson.name);
+          // this.graphService.nodes = graphJson.graph.nodes;
+        }
+      };
+      fileReader.onerror = (error) => {
+        console.log(error);
+      };
+    }
   }
 }

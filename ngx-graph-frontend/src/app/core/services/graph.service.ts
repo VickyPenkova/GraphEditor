@@ -20,9 +20,9 @@ export class GraphDTO {
       "nodes": nodes,
       "edges": edges,
       "annotations": []
-    }
+    };
   }
-};
+}
 
 @Injectable({
   providedIn: "root"
@@ -37,9 +37,9 @@ export class GraphService {
   private _edgesObservable: Subject<Edge[]> = new Subject<Edge[]> ();
   private _currentGraphObservable: Subject<number> = new Subject<number>();
 
-  //_files:Map<string,Map<string,string>> = new Map<string, Map<string,string> >();
-  _files = {}
-  //_filesObservable: Subject<Map<string, string>> = new Subject<Map<string, string>>();
+  // _files:Map<string,Map<string,string>> = new Map<string, Map<string,string> >();
+  _files = {};
+  // _filesObservable: Subject<Map<string, string>> = new Subject<Map<string, string>>();
   _filesObservable:Subject<any> = new Subject<any>();
 
   unsaved:Set<string> = new Set<string>();
@@ -55,25 +55,25 @@ export class GraphService {
       }
 
       this.updateGraphs();
-    })
+    });
   }
 
-  public updateFile(hash:string, html:string): void{
+  public updateFile(hash:string, html:string): void {
     let files = this._files[this._graphs[this.currentGraph].name.toString()];
     if (files !== undefined) {
-      files[hash] = html
+      files[hash] = html;
     } else {
-      let m = {}
-      m[hash] = html
+      let m = {};
+      m[hash] = html;
       this._files[this._graphs[this.currentGraph].name.toString()] = m;
     }
 
-    this._graphs[this.currentGraph].graph.annotations = 
+    this._graphs[this.currentGraph].graph.annotations =
       this._files[this._graphs[this.currentGraph].name.toString()];
     this._filesObservable.next(this._files[this._graphs[this.currentGraph].name.toString()]);
   }
 
-  public setGraph(graph_name: string) : void {
+  public setGraph(graph_name: string): void {
     let i:number = 0;
     for(let g of this._graphs) {
       if (g.name === graph_name) {
@@ -107,7 +107,7 @@ export class GraphService {
   }
 
   public deleteNode(node):void {
-    this._graphs[this._currentGraph].graph.nodes = 
+    this._graphs[this._currentGraph].graph.nodes =
       this._graphs[this._currentGraph].graph.nodes.filter(n => n !== node);
     this.deleteAllEdgesOfNode(node.id);
     this.unsaved.add(this._graphs[this._currentGraph].name.toString());
@@ -115,7 +115,7 @@ export class GraphService {
   }
 
   public deleteEdge(edge):void {
-    this._graphs[this._currentGraph].graph.edges = 
+    this._graphs[this._currentGraph].graph.edges =
       this._graphs[this._currentGraph].graph.edges.filter(e => e !== edge);
     this.unsaved.add(this._graphs[this._currentGraph].name.toString());
     this.updateEdges();
@@ -168,12 +168,12 @@ export class GraphService {
     let es = this._graphs[this.currentGraph].graph.edges;
     let as = this._graphs[this.currentGraph].graph.annotations;
     let saved_name:string = this._graphs[this.currentGraph].name.toString()
-    let g = {"nodes": ns, "edges":es, "annotations": as}
+    let g = {"nodes": ns, "edges":es, "annotations": as};
 
-    console.log("to save..")
+    console.log("to save..");
     console.log(g)
-    console.log(JSON.stringify(g))
-    console.log("end save..")
+    console.log(JSON.stringify(g));
+    console.log("end save..");
 
     const url: string = graphBackendUrl + `?graphName=${name}`;
     this.http.post<any>(url, JSON.stringify(g), httpOptions)
@@ -184,24 +184,24 @@ export class GraphService {
             this._graphs = [this._graphs[0], ...graphs];
             this.updateGraphs();
             this.setGraph(name);
-          })
+          });
         }, error => {
           alert("Error while saving graph.");
           console.error(error)
         }
-      )
+      );
   }
 
   private retrieveAllGraphs(): Observable<GraphDTO[]> {
     const url: string = graphBackendUrl;
-    return this.http.get<GraphDTO[]>(url, httpOptions)
+    return this.http.get<GraphDTO[]>(url, httpOptions);
   }
 
-  private updateCurrentGraphIndex(): void{
+  private updateCurrentGraphIndex(): void {
     this._currentGraphObservable.next(this._currentGraph);
   }
 
-  private updateGraphs() : void {
+  private updateGraphs(): void {
     this._graphsObservable.next(this._graphs);
   }
 
@@ -238,7 +238,7 @@ export class GraphService {
       .forEach(e => this.deleteEdge(e));
   }
 
-  get graphsObservable() : Subject<GraphDTO[]> {
+  get graphsObservable(): Subject<GraphDTO[]> {
     return this._graphsObservable;
   }
 
