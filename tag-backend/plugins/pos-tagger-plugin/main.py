@@ -24,7 +24,9 @@ def construct_graph(tagged, start_id_cnt):
 
     for idx, tag in enumerate(tagged):
 
-        if (tag[0] not in string.punctuation or tag[1] not in string.punctuation):
+        if (tag[0] not in string.punctuation and tag[1] not in string.punctuation)\
+                and tag[0] != '``' and tag[1] != '``' and tag[0] != "''" and tag[1] != "''":
+
             graph['nodes'].append({'id': start_id_cnt + idx - minus, 'label': tag[0]})
             graph['edges'].append({'source': start_id_cnt + idx - minus, 'target': tag[1]})
         else:
