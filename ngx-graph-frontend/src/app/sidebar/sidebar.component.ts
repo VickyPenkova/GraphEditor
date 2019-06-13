@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { GraphService } from "../core/services/graph.service";
+import {GraphDTO, GraphService} from "../core/services/graph.service";
 import { Node, Edge } from "@swimlane/ngx-graph";
 import { NodeService } from "../core/services/node.service";
 import { EdgeService } from "../core/services/edge.service";
@@ -31,19 +31,19 @@ export class SidebarComponent implements OnInit {
     saveAs(new Blob([JSON.stringify(this.graphService.getGraphDTO())], {type: "application/json" }), this.graphService.graphName);
   }
 
-  saveGraph() :void {
-    let name = this.graphService.graphName.toString()
+  saveGraph():void {
+    let name = this.graphService.graphName.toString();
     this.graphService.saveGraph(name);
   }
 
   saveGraphAs(): void {
     let name = prompt("Enter graph name.", "e.g. graph 1");
-    if (name == undefined){
-      return
+    if (name == undefined) {
+      return;
     }
     for (let g of this.graphService.graphs) {
       if(name == g.name) {
-        alert("Graph " + name + " already exists. To modify it, please select it from the dropdown.")
+        alert("Graph " + name + " already exists. To modify it, please select it from the dropdown.");
         return;
       }
     }
@@ -57,7 +57,27 @@ export class SidebarComponent implements OnInit {
       fileReader.onload = () => {
         if (typeof fileReader.result === "string") {
           const graphJson: any = JSON.parse(fileReader.result);
-          this.graphService.setGraph(graphJson.name);
+          let all: any = this.graphService.graphs;
+
+          let isNamePresent: boolean = true;
+          for (let graph of all) {
+              if (graph.name === graphJson.name) {
+                  isNamePresent = false;
+                  break;
+              }
+          }
+
+          if (isNamePresent) {
+              const newGraph: GraphDTO = new GraphDTO(
+                  graphJson.name + Math.floor(Math.random() * 1000), graphJson.graph.nodes, graphJson.graph.edges);
+              all.push(newGraph);
+              this.graphService.setGraph(newGraph.name);
+          } else {
+              this.graphService.setGraph(graphJson.name);
+          }
+          console.log("JORO LOG");
+          console.log(all);
+          console.log(this.graphService.currentGraph);
           // this.graphService.nodes = graphJson.graph.nodes;
         }
       };

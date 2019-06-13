@@ -11,10 +11,10 @@ const httpOptions: object = {
 const graphBackendUrl: string = "http://localhost:8090/api/v1/graphs";
 
 export class GraphDTO {
-  name: String;
+  name: string;
   graph;
 
-  constructor(name:String, nodes:Node[], edges:Edge[]) {
+  constructor(name:string, nodes:Node[], edges:Edge[]) {
     this.name = name;
     this.graph = {
       "nodes": nodes,
@@ -270,11 +270,11 @@ export class GraphService {
     return this._graphs[this._currentGraph].graph.edges;
   }
 
-  get graphName(): String {
+  get graphName(): string {
     return this._graphs[this._currentGraph].name;
   }
 
-  set graphName(name:String) {
+  set graphName(name:string) {
     this._graphs[this._currentGraph].name = name;
   }
 }
