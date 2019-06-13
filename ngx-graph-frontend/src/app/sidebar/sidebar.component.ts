@@ -57,13 +57,7 @@ export class SidebarComponent implements OnInit {
       fileReader.onload = () => {
         if (typeof fileReader.result === "string") {
           const graphJson: any = JSON.parse(fileReader.result);
-          for (let node of graphJson.graph.nodes) {
-            this.graphService.addNode(node);
-          }
-
-          for (let edge of graphJson.graph.edges) {
-            this.graphService.addEdge(edge);
-          }
+          this.graphService.setGraph(graphJson.name);
           // this.graphService.nodes = graphJson.graph.nodes;
         }
       };
