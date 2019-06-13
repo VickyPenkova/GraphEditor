@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import * as shape from 'd3-shape';
-import { Edge, Node, ClusterNode, Layout } from '@swimlane/ngx-graph';
-import { nodes, clusters, links } from '../data';
-import { Subject } from 'rxjs';
-import { GraphService } from '../core/services/graph.service';
-import { NodeService } from '../core/services/node.service';
-import { FormControl } from '@angular/forms';
-import { EdgeService } from '../core/services/edge.service';
-import { ItemEditService } from '../core/services/item-edit.service';
-import { LayoutService } from '../core/services/layout.service';
-import { Router } from '@angular/router';
-import { AnnotateTextService } from '../core/services/annotate-text.service';
+import { Component, OnInit } from "@angular/core";
+import * as shape from "d3-shape";
+import { Edge, Node, ClusterNode, Layout } from "@swimlane/ngx-graph";
+import { nodes, clusters, links } from "../data";
+import { Subject } from "rxjs";
+import { GraphService } from "../core/services/graph.service";
+import { NodeService } from "../core/services/node.service";
+import { FormControl } from "@angular/forms";
+import { EdgeService } from "../core/services/edge.service";
+import { ItemEditService } from "../core/services/item-edit.service";
+import { LayoutService } from "../core/services/layout.service";
+import { Router } from "@angular/router";
+import { AnnotateTextService } from "../core/services/annotate-text.service";
 
 @Component({
-  selector: 'app-graph-renderer',
-  templateUrl: './graph-renderer.component.html',
-  styleUrls: ['./graph-renderer.component.scss']
+  selector: "app-graph-renderer",
+  templateUrl: "./graph-renderer.component.html",
+  styleUrls: ["./graph-renderer.component.scss"]
 })
 export class GraphRendererComponent implements OnInit {
 
-  nodes: Node[] = []
-  links: Edge[] = []
+  nodes: Node[] = [];
+  links: Edge[] = [];
 
   update$: Subject<boolean> = new Subject();
   panToNode$: Subject<string> = new Subject();
@@ -47,23 +47,23 @@ export class GraphRendererComponent implements OnInit {
     this.fitGraph();
     this.setLayout(this.layoutService.layoutName);
     this.panToNode$.next("node1");
-    
+
     this.update$.next(true);
 
     this.graphService.nodesObservable.subscribe(ns => {
       this.nodes = ns;
       console.log(ns);
       console.log(this.nodes);
-      
+
       if(ns.length > 0) {
-        this.panToNode$.next(ns[ns.length -1].id)
+        this.panToNode$.next(ns[ns.length -1].id);
       }
-      this.update$.next(true)
+      this.update$.next(true);
     });
 
     this.graphService.edgesObservable.subscribe(es => {
       this.links = es;
-      this.update$.next(true)
+      this.update$.next(true);
     });
 
     this.layoutService.layout.subscribe(l => {
@@ -93,20 +93,20 @@ export class GraphRendererComponent implements OnInit {
 
   clusters: ClusterNode[] = [];
 
-  curveType: string = 'Bundle';
+  curveType: string = "Bundle";
   curve: any = shape.curveLinear;
   interpolationTypes = [
-    'Bundle',
-    'Cardinal',
-    'Catmull Rom',
-    'Linear',
-    'Monotone X',
-    'Monotone Y',
-    'Natural',
-    'Step',
-    'Step After',
-    'Step Before'
-  ];  
+    "Bundle",
+    "Cardinal",
+    "Catmull Rom",
+    "Linear",
+    "Monotone X",
+    "Monotone Y",
+    "Natural",
+    "Step",
+    "Step After",
+    "Step Before"
+  ];
 
   draggingEnabled: boolean = true;
   panningEnabled: boolean = true;
@@ -118,45 +118,45 @@ export class GraphRendererComponent implements OnInit {
   panOnZoom: boolean = true;
 
   autoZoom: boolean = false;
-  autoCenter: boolean = false; 
+  autoCenter: boolean = false;
   center$: Subject<boolean> = new Subject();
-   
+
   private setInterpolationType(curveType) {
     this.curveType = curveType;
-    if (curveType === 'Bundle') {
+    if (curveType === "Bundle") {
       this.curve = shape.curveBundle.beta(1);
     }
-    if (curveType === 'Cardinal') {
+    if (curveType === "Cardinal") {
       this.curve = shape.curveCardinal;
     }
-    if (curveType === 'Catmull Rom') {
+    if (curveType === "Catmull Rom") {
       this.curve = shape.curveCatmullRom;
     }
-    if (curveType === 'Linear') {
+    if (curveType === "Linear") {
       this.curve = shape.curveLinear;
     }
-    if (curveType === 'Monotone X') {
+    if (curveType === "Monotone X") {
       this.curve = shape.curveMonotoneX;
     }
-    if (curveType === 'Monotone Y') {
+    if (curveType === "Monotone Y") {
       this.curve = shape.curveMonotoneY;
     }
-    if (curveType === 'Natural') {
+    if (curveType === "Natural") {
       this.curve = shape.curveNatural;
     }
-    if (curveType === 'Step') {
+    if (curveType === "Step") {
       this.curve = shape.curveStep;
     }
-    if (curveType === 'Step After') {
+    if (curveType === "Step After") {
       this.curve = shape.curveStepAfter;
     }
-    if (curveType === 'Step Before') {
+    if (curveType === "Step Before") {
       this.curve = shape.curveStepBefore;
     }
   }
 
   private fitGraph() {
-    this.zoomToFit$.next(true)
+    this.zoomToFit$.next(true);
   }
 
   private setLayout(layoutName: String): void {
@@ -170,7 +170,7 @@ export class GraphRendererComponent implements OnInit {
   }
 
   private clickNodeBuild(event, id) {
-    if (this.edgeService.addingEdge){
+    if (this.edgeService.addingEdge) {
       this.edgeService.addNodeToEdge(id);
     } else {
       this.openNodeForEditting(id);
