@@ -112,6 +112,7 @@ export class SteinerService {
   }
 
   public constructTree(): string[] {
+    this.allPaths = [];
     let weights:number[][] = []
     let numVertices:number = this.graphService.nodes.length;
 
@@ -138,11 +139,11 @@ export class SteinerService {
     return this.steiner(mappingWordToNumber, mappingNumberToWord)
     //this.allPaths.filter( p => p.dist != this.inf)
 
-    /*console.log("pair     dist    path");
+    console.log("pair     dist    path");
     for(let p of this.allPaths) {
       let path:string = mappingNumberToWord.get(p.from) + " -> " + mappingNumberToWord.get(p.to) + "    " + p.dist + "    " + p.path
       console.log(path);
-    }*/
+    }
   }
 
   private getPath(from, to):number[] {
