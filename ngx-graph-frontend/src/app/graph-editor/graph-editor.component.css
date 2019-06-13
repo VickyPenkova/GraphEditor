@@ -18,6 +18,15 @@
   width: 170px;
 }
 
+.enter-text{
+  position: fixed;
+  bottom: 0;
+  left: 2%;
+  width: 500px;
+  z-index: 2;
+  height:300px;
+}
+
 .mat-select,
 .mat-slide-toggle {
   float: right;

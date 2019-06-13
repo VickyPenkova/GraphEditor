@@ -1,25 +1,36 @@
 import nltk
 import json
 import os
+import string
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-def tag(input_text):
+def tag(input_text, start_id_cnt):
     print(dir_path)
     text = nltk.word_tokenize(input_text)
 
     tagged = nltk.pos_tag(text)
 
-    return construct_graph(tagged)
+    return construct_graph(tagged, start_id_cnt)
 
-def construct_graph(tagged):
+def construct_graph(tagged, start_id_cnt):
+
+    start_id_cnt = int(start_id_cnt)
 
     with open(os.path.join(dir_path, 'graph.json')) as f:
         graph = json.load(f)
 
+    minus = 0
+
     for idx, tag in enumerate(tagged):
-        graph['graph']['nodes'].append({'id': idx, 'data': tag[0]})
-        graph['graph']['edges'].append({'source': idx, 'target': tag[1]})
+
+        if (tag[0] not in string.punctuation and tag[1] not in string.punctuation)\
+                and tag[0] != '``' and tag[1] != '``' and tag[0] != "''" and tag[1] != "''":
+
+            graph['nodes'].append({'id': start_id_cnt + idx - minus, 'label': tag[0]})
+            graph['edges'].append({'source': start_id_cnt + idx - minus, 'target': tag[1]})
+        else:
+            minus = minus + 1
 
     return json.dumps(graph)
 

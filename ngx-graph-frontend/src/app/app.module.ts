@@ -18,6 +18,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { SelectGraphComponent } from './select-graph/select-graph.component';
 import { SafeHtmlPipe } from './safe-html.pipe';
 import { AnnotateTextNewComponent } from "./annotate-text-new/annotate-text-new.component";
+import { AutoannotateComponent } from './autoannotate/autoannotate.component';
 
 const routes: Routes = [
   { path: "", component: GraphEditorComponent, pathMatch: 'full'},
@@ -46,6 +47,7 @@ const routes: Routes = [
     GraphEditorComponent,
     GraphRendererComponent,
     SelectGraphComponent,
+    AutoannotateComponent,
     SafeHtmlPipe,
     AnnotateTextNewComponent
   ],

@@ -58,6 +58,23 @@ export class GraphService {
     })
   }
 
+  public updateGraph(graph: GraphDTO): void {
+    
+    let i:number = 0;
+    for(let g of this._graphs) {
+      if (g.name === graph.name) {
+        break;
+      }
+      i = i + 1;
+    }
+
+    this._graphs[i] = graph;
+    this._currentGraph = i;
+    this.updateCurrentGraphIndex();
+    this.updateNodes();
+    this.updateEdges();
+  }
+
   public updateFile(hash:string, html:string): void{
     let files = this._files[this._graphs[this.currentGraph].name.toString()];
     if (files !== undefined) {

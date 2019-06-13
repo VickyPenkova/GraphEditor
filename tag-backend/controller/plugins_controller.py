@@ -37,23 +37,28 @@ class PluginsController(BaseHTTPRequestHandler):
 
             res = [*self.PLUGINS]
             res = json.dumps(res)
-            print(res)
+
             self.wfile.write(res.encode(encoding='utf_8'))
 
     def do_POST(self):
         if '/api/autograph' in self.path:
 
             plugin_name = parse_qs(urlparse(self.path).query).get('plugin_name', None)[0]
+            start_id_cnt = parse_qs(urlparse(self.path).query).get('start_id', None)[0]
 
             content_len = int(self.headers.get('Content-Length'))
             post_body = str(self.rfile.read(content_len), 'utf_8')
 
-            response = self.PLUGINS[plugin_name].tag(post_body)
+            response = self.PLUGINS[plugin_name].tag(post_body, start_id_cnt)
+
+            self.send_response(200)
 
             self.send_header('Content-Type', 'application/json')
+            self.send_header("Access-Control-Allow-Origin", "*")
             self.end_headers()
-            res = json.dumps(response)
-            self.wfile.write(res.encode(encoding='utf_8'))
+
+            print(response)
+            self.wfile.write(response.encode(encoding='utf_8'))
 
 if __name__ == '__main__':
 
