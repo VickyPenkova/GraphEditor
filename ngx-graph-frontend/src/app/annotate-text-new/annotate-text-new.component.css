@@ -4,9 +4,97 @@
 
 */
 @import "~bootstrap/dist/css/bootstrap.min.css";
+@import 'https://fonts.googleapis.com/css?family=Comfortaa:300,400,700&subset=cyrillic,cyrillic-ext,latin-ext';
+
+* {
+  font-family: comfortaa;
+ }
 .wrapper {
   padding: 20px;
+  background-color: #FAFAFA;
+  box-sizing: border-box;
+  float: left;
+  width: 100%;
 }
+
+.leftC{
+    float: left;
+    width:48%;
+    margin: 1%;
+    box-sizing: border-box;
+}
+
+.upload-btn-wrpr {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width:100%;
+    height: 65px;
+}
+.cntr-wr {
+    margin: 0 auto;
+    display: block;
+    width: 200px;
+}
+
+.btnn {
+    float: left;
+}
+
+button {color:#454545;background:transparent;border-width:2px;border-style: solid;border-color: #454545;position:relative;margin:1em;display:inline-block;padding:0.3em 0.7em;transition:all 0.3s ease-in-out;text-align:center;
+font-family:comfortaa;font-weight:bold; outline: none}
+button:before, button:after {content:'';display:block;position:absolute;border-color:#454545;box-sizing:border-box;border-style:solid;width:1em;height:1em;transition:all 0.3s ease-in-out}
+button:before {top:-6px;left:-6px;border-width:2px 0 0 2px;z-index:5;}
+button:after {bottom:-6px;right:-6px;border-width:0 2px 2px 0;}
+button:hover:before, button:hover:after {width:calc(100% + 12px);
+    height:calc(100% + 12px);border-color:#a1c057}
+button:hover {background-color:#a1c057;border-color:#a1c057;color: white}
+.panel {max-width:960px;text-align:center;position:relative;margin:auto;}
+
+#containerForFileInput{
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    margin: 10px 0 0 0;
+    height: 350px;
+    overflow-wrap: break-word !important;
+    word-wrap: break-word !important;
+    white-space: pre-wrap !important;
+    overflow-y: auto !important;
+}
+
+#footer {
+    background-color: white;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    height: 30px;
+}
+
+.rightC{
+    float: right;
+    width:48%;
+    margin: 1%;
+    box-sizing: border-box;
+}
+
+.headG{
+    height: 65px;
+    display: inline-block;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 15px;
+    width:100%;
+}
+
+.footG{
+    float: left;
+    margin: 10px 0 0 0;
+    width: 100%;
+    background-color: white;
+}
+/*
+
 h2 {
   color: #a0be56;
 }
@@ -54,7 +142,6 @@ h2 {
   height: 350px;
   overflow-wrap: break-word !important;
   word-wrap: break-word !important;
-  /* Keep the holy new lines */
   white-space: pre-wrap !important;
   overflow-y: auto !important;
 }
@@ -101,4 +188,4 @@ span.used {
   color : #a0be56;
   border-radius: 5px;
   padding: 2px;
-}
+}*/

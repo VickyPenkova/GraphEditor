@@ -1,13 +1,51 @@
 <a routerLink=""> edit graph </a>
 <div class="wrapper">
+
+  <div class="leftC">
+    <div class="upload-btn-wrpr">
+      <div class="cntr-wr">
+        <button class="btnn" onclick="$('#upload-file-button').click();">Upload a file</button>
+        <input style="visibility: hidden; display: none;"
+          type="file"
+          accept=".txt"
+          class="upload-file"
+          id="upload-file-button"
+          (change)="changeOfFile($event)"
+        />
+      </div>
+    </div>
+    <div
+      id="containerForFileInput"
+      class="output-text-container handleOverflow"
+      (mouseup)="handleTextSelection($event)"
+      [innerHTML]="txt | safeHtml"
+    >
+    </div>
+    <div id="footer"> 
+      <span>Selected part from uploaded file: </span> <b><span style="color: #a1c057">{{ this.markedWord }}</span></b>
+    </div>
+  </div>
+
+  <div class="rightC">
+      <div class="headG">
+          <app-select-graph></app-select-graph>
+      </div>
+      <div class="footG">
+        <app-graph-renderer> </app-graph-renderer>
+      </div>
+  </div>
+</div>
+<!--
+
+<div class="wrapper">
   <div class="row">
     <div class="mx-auto mb-5">
       <h2>Annotate Text</h2>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-6">
-      <div class="row">
+    <div class="col-md-6 white-c-w">
+      <div class="row white-c">
         <div class="col-12">
           <div class="upload-btn-wrapper">
             <button class="btn">Upload a file</button>
@@ -43,14 +81,13 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-6">
-      <div class="row">
+    <div class="col-md-6 white-c">
+      <div class="row white-c">
         <div class="col-lg-12">
           <app-select-graph></app-select-graph>
         </div>
       </div>
       <div class="row mt-3">
-        <!-- put graph editor here? -->
         <div class="col-lg-12">
           <app-graph-renderer> </app-graph-renderer>
         </div>
@@ -58,3 +95,4 @@
     </div>
   </div>
 </div>
+-->
