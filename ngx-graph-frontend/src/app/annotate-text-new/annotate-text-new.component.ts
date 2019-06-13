@@ -27,7 +27,7 @@ export class AnnotateTextNewComponent implements OnInit {
   changeOfFile(event) {
     var fileReader = new FileReader();
     fileReader.onload = e => {
-      var text:string = fileReader.result;
+      var text:string = fileReader.result as string;
       this.annotationService.text = text;
     };
     var file = event.target.files[0];
