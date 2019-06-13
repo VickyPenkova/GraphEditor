@@ -85,7 +85,7 @@ export class AnnotateTextNewComponent implements OnInit {
       });
 
       this.markedWord = content;
-      this.edgeService.addSource(this.markedWord, this.annotationService.hash, potentialHtml);
+      this.edgeService.addSource(this.markedWord, span.id, this.annotationService.hash, potentialHtml);
     }
   }
 

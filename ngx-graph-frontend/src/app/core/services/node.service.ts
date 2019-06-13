@@ -36,24 +36,24 @@ export class NodeService {
   }
 
   // TODO: reuse addNode
-  public addLinkedNode(lbl:string):string {
+  public addLinkedNode(lbl:string, uuid:string):string {
     let nextId = Math.floor(Math.random() * 1000000000);
     let node: Node = {
       dimension: {width: this.width, height: this.height},
       meta: {
         forceDimensions: true,
-        color: this.colorLuminance(this.color, this.getRandomArbitrary(-0.2, 0.2)),
+        color: this.colorLuminance(this.color, this.getRandomArbitrary(-0.2, 0.2))
       },
       position:{
         x: 0,
         y: 0
       },
-      id: "node"+(nextId).toString(),
+      id: uuid,
       label: lbl
     }
     
     this.graphService.addNode(node);
-    return "node"+(nextId).toString();
+    return uuid;
   }
 
   private colorLuminance(hex, lum):string {

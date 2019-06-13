@@ -171,6 +171,7 @@ export class GraphService {
     let g = {"nodes": ns, "edges":es, "annotations": as}
 
     console.log("to save..")
+    console.log(g)
     console.log(JSON.stringify(g))
     console.log("end save..")
 
@@ -186,6 +187,7 @@ export class GraphService {
           })
         }, error => {
           alert("Error while saving graph.");
+          console.error(error)
         }
       )
   }
@@ -215,6 +217,15 @@ export class GraphService {
     for(let e of this._graphs[this._currentGraph].graph.edges) {
       if(e.source == edge.source
         && e.target == edge.target) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  edgeExistsBetween(source_id, target_id): boolean {
+    for(let e of this._graphs[this._currentGraph].graph.edges) {
+      if(e.source == source_id && e.target == target_id) {
         return true;
       }
     }

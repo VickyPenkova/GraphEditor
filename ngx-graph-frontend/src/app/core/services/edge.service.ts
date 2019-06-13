@@ -55,18 +55,25 @@ export class EdgeService {
 
   private s:string;
   private h:string;
+  private uuid:string;
   private potentialHtml:string;
 
-  public addSource(label:string, hash:string, potentialHtml:string): void {
+  public addSource(label:string, uuid:string, hash:string, potentialHtml:string): void {
     this.s = label;
     this.h = hash;
+    this.uuid = uuid;
     this.potentialHtml = potentialHtml;
   }
 
   public addTarget(targetId:string): void {
-    let newNodeId: string = this.nodeService.addLinkedNode(this.s);
-
-    let nodd = this.graphService.getNodeById(newNodeId);
+    let newNodeId = this.uuid;
+    if(this.graphService.getNodeById(this.uuid) != null){
+      if(this.graphService.edgeExistsBetween(this.uuid, targetId)) {
+        return
+      }
+    } else{
+      let newNodeId: string = this.nodeService.addLinkedNode(this.s, this.uuid);
+    } 
 
     let nextId = Math.floor(Math.random() * 1000000000);
     let edge:Edge = {
