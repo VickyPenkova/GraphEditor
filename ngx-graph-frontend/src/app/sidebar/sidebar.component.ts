@@ -49,4 +49,27 @@ export class SidebarComponent implements OnInit {
     }
     this.graphService.saveGraph(name);
   }
+
+  onFileChanged(event) {
+    if (event.target.files && event.target.files[0]) {
+      const fileReader: FileReader = new FileReader();
+      fileReader.readAsText(event.target.files[0], "UTF-8");
+      fileReader.onload = () => {
+        if (typeof fileReader.result === "string") {
+          const graphJson: any = JSON.parse(fileReader.result);
+          for (let node of graphJson.graph.nodes) {
+            this.graphService.addNode(node);
+          }
+
+          for (let edge of graphJson.graph.edges) {
+            this.graphService.addEdge(edge);
+          }
+          // this.graphService.nodes = graphJson.graph.nodes;
+        }
+      };
+      fileReader.onerror = (error) => {
+        console.log(error);
+      };
+    }
+  }
 }
