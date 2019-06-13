@@ -29,6 +29,9 @@
 .mat-slide-toggle {
   float: right;
 }
+.mat-slide-toggle {
+  margin-bottom: 10px;
+}
 
 .mat-select {
   width: 100%;
@@ -61,4 +64,9 @@ mat-checkbox {
 
 .button {
   margin: 3px;
+}
+
+a {
+  float: right;
+  margin-bottom: 6px;
 }

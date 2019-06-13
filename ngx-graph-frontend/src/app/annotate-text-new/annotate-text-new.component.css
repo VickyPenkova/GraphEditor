@@ -77,11 +77,12 @@ button:hover {background-color:#a1c057;border-color:#a1c057;color: white}
     background-color: #a1c057;
     border-radius: 5px;
     color: white;
-    min-height: 200px;
-    max-height: 400px;
     padding: 10px;
-    padding-left:40px;
-    padding-top: 30px;
+    padding-left:30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    float: left;
+    width: 100%;
 }
 
 #logo {
@@ -91,6 +92,7 @@ button:hover {background-color:#a1c057;border-color:#a1c057;color: white}
 #logo img {
     width: 130px;
     height: 130px;
+    float: left;
 }
 
 #txt {
@@ -120,6 +122,12 @@ button:hover {background-color:#a1c057;border-color:#a1c057;color: white}
     margin: 10px 0 0 0;
     width: 100%;
     background-color: white;
+}
+
+#toBuild {
+  position: absolute;
+  top: 5px;
+  right: 5px;;
 }
 /*
 
