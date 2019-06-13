@@ -10,24 +10,24 @@ export class LayoutService {
   private _layout: Subject<String> = new Subject<String> ();
 
   private _layouts: any[] = [
-    {
+    /*{
       label: 'Dagre',
       value: 'dagre',
-    },
+    },*/
     {
       label: 'Dagre Cluster',
       value: 'dagreCluster',
       isClustered: true,
-    },
-    /*{
+    }/*,
+    {
       label: 'Cola Force Directed',
       value: 'colaForceDirected',
       isClustered: true,
-    },*/
+    },
     {
       label: 'D3 Force Directed',
       value: 'd3ForceDirected',
-    },
+    },*/
   ];
 
   constructor() {

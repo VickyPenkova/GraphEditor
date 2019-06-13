@@ -77,15 +77,25 @@ button:hover {background-color:#a1c057;border-color:#a1c057;color: white}
     background-color: #a1c057;
     border-radius: 5px;
     color: white;
-    height: 200px;
+    min-height: 200px;
+    max-height: 400px;
     padding: 10px;
+    padding-left:40px;
+    padding-top: 30px;
 }
 
 #logo {
     float: left;
 }
 
+#logo img {
+    width: 130px;
+    height: 130px;
+}
+
 #txt {
+    padding-top: 20px;
+    padding-left: 20px;
     float: left
 }
 

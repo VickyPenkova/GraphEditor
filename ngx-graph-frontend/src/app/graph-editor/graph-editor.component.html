@@ -5,7 +5,7 @@
     (change)="toggleMultipleEditors($event)"
     >multiple editors</mat-slide-toggle
   >
-  <mat-select
+  <!--<mat-select
     placeholder="Layout"
     [ngModel]="this.layoutService.layoutName"
     (ngModelChange)="this.layoutService.setLayout($event)"
@@ -15,6 +15,7 @@
       {{ l.label }}
     </mat-option>
   </mat-select>
+  -->
 
   <app-select-graph></app-select-graph>
 </div>

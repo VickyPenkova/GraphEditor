@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GraphService } from '../core/services/graph.service';
+import { GraphService, GraphDTO } from '../core/services/graph.service';
 import { Node, Edge } from '@swimlane/ngx-graph';
 import { NodeService } from '../core/services/node.service';
 import { EdgeService } from '../core/services/edge.service';
@@ -48,5 +48,32 @@ export class SidebarComponent implements OnInit {
       }
     } 
     this.graphService.saveGraph(name);
+  }
+
+  private onFileChanged(event):void {
+    if (event.target.files && event.target.files[0]) {
+      const fileReader: FileReader = new FileReader();
+      fileReader.readAsText(event.target.files[0], "UTF-8");
+      fileReader.onload = () => {
+        if (typeof fileReader.result === "string") {
+          let graph: GraphDTO = JSON.parse(fileReader.result);
+          let gs = this.graphService.graphs
+          let idx:number = gs.map(g => g.name).indexOf(graph.name);
+
+          if(idx === -1) {
+            gs.push(graph);
+            this.graphService.graphs = gs;
+          } else {
+            this.graphService.graphs[idx] = graph;
+          }
+
+          this.graphService.setGraph(graph.name.toString());
+          this.graphService.unsaved.add(graph.name.toString());
+        }
+      };
+      fileReader.onerror = (error) => {
+        console.log(error);
+      };
+    }
   }
 }

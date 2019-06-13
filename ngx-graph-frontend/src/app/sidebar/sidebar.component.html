@@ -9,8 +9,8 @@
     <a title="Add Node" (click)="nodeService.addNode()"><img class="icon" src="assets/icons/graph_node.png"/></a> 
     <a title="Add Link" [ngClass]="{'active': edgeService.addingEdge}" (click)="edgeService.toggleAddingEdge()"><img class="icon" src="assets/icons/graph_connection_directed.png"/></a> 
     <a title="Export Graph" (click)="downloadGraph()"><img class="icon-square" src="assets/icons/download.png"/></a>
-    <input style="display:none;" type='file' accept='text/plain' (change)='openFile($event)'>
-    <a title="Import Graph" (click)="file.click()"><img class="icon-square" src="assets/icons/import.png"/></a>
+    <input id="getFile" style="display:none;" type='file' accept='text/plain' (change)='onFileChanged($event)'>
+    <a title="Import Graph" onclick="document.getElementById('getFile').click()"><img class="icon-square" src="assets/icons/import.png"/></a>
     <a *ngIf="this.graphService.graphs[this.graphService.currentGraph].name != 'WIP Graph' && this.graphService.unsaved.has(this.graphService.graphs[this.graphService.currentGraph].name.toString())" 
     title="Save Graph" (click)="saveGraph()"><img class="icon-square" src="assets/icons/unsaved.png"/></a>
     <a *ngIf="this.graphService.graphs[this.graphService.currentGraph].name != 'WIP Graph' && !this.graphService.unsaved.has(this.graphService.graphs[this.graphService.currentGraph].name.toString())" 

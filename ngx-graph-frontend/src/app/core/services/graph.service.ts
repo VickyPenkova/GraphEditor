@@ -262,6 +262,10 @@ export class GraphService {
     return this._graphs;
   }
 
+  set graphs(graphs: GraphDTO[]) {
+    this._graphs = graphs;
+  }
+
   get nodes(): Node[] {
     return this._graphs[this._currentGraph].graph.nodes;
   }
