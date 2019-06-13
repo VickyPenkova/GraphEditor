@@ -42,8 +42,7 @@ export class GraphService {
   //_filesObservable: Subject<Map<string, string>> = new Subject<Map<string, string>>();
   _filesObservable:Subject<any> = new Subject<any>();
 
-  _max_nodes_len:number = 0;
-  _max_edges_len:number = 0;
+  unsaved:Set<string> = new Set<string>();
 
   constructor(
       private http: HttpClient
@@ -91,6 +90,7 @@ export class GraphService {
   public addNode(node:Node): void {
     console.log("Pushing node: " + node);
     this._graphs[this._currentGraph].graph.nodes.push(node);
+    this.unsaved.add(this._graphs[this._currentGraph].name.toString());
     this.updateNodes();
   }
 
@@ -102,6 +102,7 @@ export class GraphService {
 
     console.log("Pushing edge: " + edge);
     this._graphs[this._currentGraph].graph.edges.push(edge);
+    this.unsaved.add(this._graphs[this._currentGraph].name.toString());
     this.updateEdges();
   }
 
@@ -109,12 +110,14 @@ export class GraphService {
     this._graphs[this._currentGraph].graph.nodes = 
       this._graphs[this._currentGraph].graph.nodes.filter(n => n !== node);
     this.deleteAllEdgesOfNode(node.id);
+    this.unsaved.add(this._graphs[this._currentGraph].name.toString());
     this.updateNodes();
   }
 
   public deleteEdge(edge):void {
     this._graphs[this._currentGraph].graph.edges = 
       this._graphs[this._currentGraph].graph.edges.filter(e => e !== edge);
+    this.unsaved.add(this._graphs[this._currentGraph].name.toString());
     this.updateEdges();
   }
 
@@ -142,6 +145,7 @@ export class GraphService {
         node = n;
       }
     }
+    this.unsaved.add(this._graphs[this._currentGraph].name.toString());
     this.updateNodes();
   }
 
@@ -151,6 +155,7 @@ export class GraphService {
         edge = e;
       }
     }
+    this.unsaved.add(this._graphs[this._currentGraph].name.toString());
     this.updateEdges();
   }
 
@@ -176,6 +181,7 @@ export class GraphService {
             this._graphs = [this._graphs[0], ...graphs];
             this.updateGraphs();
             this.setGraph(name);
+            this.unsaved.delete(this._graphs[name].name.toString());
           })
         }, error => {
           alert("Error while saving graph.");
@@ -197,16 +203,10 @@ export class GraphService {
   }
 
   private updateNodes(): void {
-    if(this._graphs[this._currentGraph].graph.nodes.length > this._max_nodes_len) {
-      this._max_nodes_len = this._graphs[this._currentGraph].graph.nodes.length;
-    }
     this._nodesObservable.next(this._graphs[this._currentGraph].graph.nodes);
   }
 
   private updateEdges(): void {
-    if(this._graphs[this._currentGraph].graph.edges.length > this._max_edges_len) {
-      this._max_edges_len = this._graphs[this._currentGraph].graph.edges.length;
-    }
     this._edgesObservable.next(this._graphs[this._currentGraph].graph.edges);
   }
 

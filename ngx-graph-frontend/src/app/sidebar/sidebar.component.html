@@ -11,7 +11,11 @@
     <a title="Export Graph" (click)="downloadGraph()"><img class="icon-square" src="assets/icons/download.png"/></a>
     <input style="display:none;" type='file' accept='text/plain' (change)='openFile($event)'>
     <a title="Import Graph" (click)="file.click()"><img class="icon-square" src="assets/icons/import.png"/></a>
-    <a title="Save Graph" (click)="saveGraph()"><img class="icon-square" src="assets/icons/save.png"/></a>
+    <a *ngIf="this.graphService.graphs[this.graphService.currentGraph].name != 'WIP Graph' && this.graphService.unsaved.has(this.graphService.graphs[this.graphService.currentGraph].name.toString())" 
+    title="Save Graph" (click)="saveGraph()"><img class="icon-square" src="assets/icons/unsaved.png"/></a>
+    <a *ngIf="this.graphService.graphs[this.graphService.currentGraph].name != 'WIP Graph' && !this.graphService.unsaved.has(this.graphService.graphs[this.graphService.currentGraph].name.toString())" 
+    title="Save Graph" (click)="saveGraph()"><img class="icon-square" src="assets/icons/save.png"/></a>
+    <a title="Save Graph As" (click)="saveGraphAs()"><img class="icon-square" src="assets/icons/save_as.png"/></a>
   </div>
 </div>
 <!--
