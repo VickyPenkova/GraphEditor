@@ -16,10 +16,12 @@ import { RouterModule, Routes } from "@angular/router";
 import { GraphRendererComponent } from "./graph-renderer/graph-renderer.component";
 import {HttpClientModule} from "@angular/common/http";
 import { SelectGraphComponent } from './select-graph/select-graph.component';
+import { SafeHtmlPipe } from './safe-html.pipe';
+import { AnnotateTextNewComponent } from "./annotate-text-new/annotate-text-new.component";
 
 const routes: Routes = [
   { path: "", component: GraphEditorComponent, pathMatch: 'full'},
-  { path: "annotate", component: AnotateTextComponent }
+  { path: "annotate", component: AnnotateTextNewComponent }
 ];
 
 @NgModule({
@@ -43,7 +45,9 @@ const routes: Routes = [
     AnotateTextComponent,
     GraphEditorComponent,
     GraphRendererComponent,
-    SelectGraphComponent
+    SelectGraphComponent,
+    SafeHtmlPipe,
+    AnnotateTextNewComponent
   ],
   bootstrap: [AppComponent],
   exports: [RouterModule]

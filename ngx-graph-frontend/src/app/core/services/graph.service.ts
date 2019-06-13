@@ -3,6 +3,7 @@ import { Node, Edge, Graph } from "@swimlane/ngx-graph";
 import {Observable, Subject} from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {tap} from "rxjs/operators";
+import { THIS_EXPR } from "@angular/compiler/src/output/output_ast";
 
 const httpOptions: object = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -17,7 +18,8 @@ export class GraphDTO {
     this.name = name;
     this.graph = {
       "nodes": nodes,
-      "edges": edges
+      "edges": edges,
+      "annotations": []
     }
   }
 };
@@ -35,13 +37,41 @@ export class GraphService {
   private _edgesObservable: Subject<Edge[]> = new Subject<Edge[]> ();
   private _currentGraphObservable: Subject<number> = new Subject<number>();
 
+  //_files:Map<string,Map<string,string>> = new Map<string, Map<string,string> >();
+  _files = {}
+  //_filesObservable: Subject<Map<string, string>> = new Subject<Map<string, string>>();
+  _filesObservable:Subject<any> = new Subject<any>();
+
+  _max_nodes_len:number = 0;
+  _max_edges_len:number = 0;
+
   constructor(
       private http: HttpClient
   ) {
     this.retrieveAllGraphs().subscribe(graphs => {
       this._graphs = [this._graphs[0], ...graphs];
+
+      for (let g of this._graphs) {
+        this._files[g.name.toString()] = g.graph.annotations;
+      }
+
       this.updateGraphs();
     })
+  }
+
+  public updateFile(hash:string, html:string): void{
+    let files = this._files[this._graphs[this.currentGraph].name.toString()];
+    if (files !== undefined) {
+      files[hash] = html
+    } else {
+      let m = {}
+      m[hash] = html
+      this._files[this._graphs[this.currentGraph].name.toString()] = m;
+    }
+
+    this._graphs[this.currentGraph].graph.annotations = 
+      this._files[this._graphs[this.currentGraph].name.toString()];
+    this._filesObservable.next(this._files[this._graphs[this.currentGraph].name.toString()]);
   }
 
   public setGraph(graph_name: string) : void {
@@ -131,7 +161,12 @@ export class GraphService {
   saveGraph(name:string): void {
     let ns = this._graphs[this.currentGraph].graph.nodes;
     let es = this._graphs[this.currentGraph].graph.edges;
-    let g = {"nodes": ns, "edges":es}
+    let as = this._graphs[this.currentGraph].graph.annotations;
+    let g = {"nodes": ns, "edges":es, "annotations": as}
+
+    console.log("to save..")
+    console.log(JSON.stringify(g))
+    console.log("end save..")
 
     const url: string = graphBackendUrl + `?graphName=${name}`;
     this.http.post<any>(url, JSON.stringify(g), httpOptions)
@@ -162,10 +197,16 @@ export class GraphService {
   }
 
   private updateNodes(): void {
+    if(this._graphs[this._currentGraph].graph.nodes.length > this._max_nodes_len) {
+      this._max_nodes_len = this._graphs[this._currentGraph].graph.nodes.length;
+    }
     this._nodesObservable.next(this._graphs[this._currentGraph].graph.nodes);
   }
 
   private updateEdges(): void {
+    if(this._graphs[this._currentGraph].graph.edges.length > this._max_edges_len) {
+      this._max_edges_len = this._graphs[this._currentGraph].graph.edges.length;
+    }
     this._edgesObservable.next(this._graphs[this._currentGraph].graph.edges);
   }
 

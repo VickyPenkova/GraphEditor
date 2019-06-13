@@ -15,7 +15,7 @@ export class NodeService {
   constructor(private graphService: GraphService) { }
 
   addNode():string {
-    let nextId = this.graphService.nodes.length + 1;
+    let nextId = Math.floor(Math.random() * 1000000000);;
     let node: Node = {
       dimension: {width: this.width, height: this.height},
       meta: {
@@ -36,15 +36,13 @@ export class NodeService {
   }
 
   // TODO: reuse addNode
-  public addLinkedNode(lbl:string, o:number, h:string):string {
-    let nextId = this.graphService.nodes.length + 1;
+  public addLinkedNode(lbl:string):string {
+    let nextId = Math.floor(Math.random() * 1000000000);
     let node: Node = {
       dimension: {width: this.width, height: this.height},
       meta: {
         forceDimensions: true,
         color: this.colorLuminance(this.color, this.getRandomArbitrary(-0.2, 0.2)),
-        offset: o,
-        fileHash: h
       },
       position:{
         x: 0,

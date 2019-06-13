@@ -28,7 +28,7 @@ export class EdgeService {
   }
 
   addNodeToEdge(id:string): void {
-    let nextId = this.graphService.edges.length + 1;
+    let nextId = Math.floor(Math.random() * 1000000000);;
     if (this._sourceId == null) {
       this._sourceId = id;
     } else if (this._sourceId == id) {
@@ -54,21 +54,21 @@ export class EdgeService {
   }
 
   private s:string;
-  private o:number;
   private h:string;
+  private potentialHtml:string;
 
-  public addSource(label:string, offset:number, fileHash:string): void {
+  public addSource(label:string, hash:string, potentialHtml:string): void {
     this.s = label;
-    this.o = offset;
-    this.h = fileHash;
+    this.h = hash;
+    this.potentialHtml = potentialHtml;
   }
 
   public addTarget(targetId:string): void {
-    let newNodeId: string = this.nodeService.addLinkedNode(this.s, this.o, this.h);
+    let newNodeId: string = this.nodeService.addLinkedNode(this.s);
 
     let nodd = this.graphService.getNodeById(newNodeId);
 
-    let nextId = this.graphService.edges.length + 1;
+    let nextId = Math.floor(Math.random() * 1000000000);
     let edge:Edge = {
       id: "edge" + (nextId).toString(),
       source: newNodeId,
@@ -81,6 +81,7 @@ export class EdgeService {
     }
 
     this.graphService.addEdge(edge);
+    this.graphService.updateFile(this.h, this.potentialHtml);
   }
 
   private _reset():void {

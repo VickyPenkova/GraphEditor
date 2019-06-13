@@ -27,15 +27,9 @@
           <div
             id="containerForFileInput"
             class="output-text-container handleOverflow"
-            (mouseup)="handleTextSelectionNew($event)"
+            (mouseup)="handleTextSelection($event)"
             [innerHTML]="txt | safeHtml"
           >
-          <!-- [innerHTML]="displayedText" 
-          <span *ngFor="let l of this.dta; let i = index"
-          [attr.id]="l.idx"
-          [ngClass]="{markedWrd: shouldColor(i) == true}"
-          >{{l.str}}</span>
--->
           </div>
         </div>
       </div>

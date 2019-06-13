@@ -28,7 +28,7 @@ export class AnotateTextComponent implements OnInit {
       this.displayedText = e;
       console.log("from NG INIT")
       this.colorWords();
-      this.annotateTextService.wordsInText = this.dta;
+      //this.annotateTextService.wordsInText = this.dta;
       //this.dta = this.annotateTextService.wordsInText;
     });
 
@@ -96,12 +96,6 @@ export class AnotateTextComponent implements OnInit {
         let sp = range.cloneContents().children[0];
         start = parseInt(sp.id);
       } 
-      /*else if (range.cloneContents().children.length == 1){
-        let sp = range.cloneContents().children[0];
-        console.log(sp.parentElement.id)
-      } else {
-        console.log(0)
-      }*/
 
       var selectionContents = range.extractContents();
       var span = document.createElement("span");
@@ -135,7 +129,81 @@ export class AnotateTextComponent implements OnInit {
     let offset:number = parseInt(res[1].toString())
     let hash: string = this.hashCode(this.displayedText);
     
-    this.edgeService.addSource(this.markedWord.toString(), offset, hash );
+    //this.edgeService.addSource(this.markedWord.toString(), offset, hash );
+  }
+
+  txt:string = 'asdasdasd sasad sad sadsad sda sda sad dsasda sadsa sdasadasd sad asddsa'
+  handleTextSelectionNew(event) {
+    //let selected = window.getSelection().getRangeAt(0).cloneContents(); 
+    //alert(selected);
+
+    var span = document.createElement("span");
+    span.style.fontWeight = "bold";
+    span.style.color = "green";
+    span.style.backgroundColor = "white";
+    span.style.color = "#a0be56";
+    span.style.borderRadius = "5px";
+    span.style.border = "1px solid black"
+
+    let caretOffset;
+    if (typeof window.getSelection != "undefined") {
+      var range = window.getSelection().getRangeAt(0);
+      var selected = range.toString().length; // *
+      var preCaretRange = range.cloneRange();
+      preCaretRange.selectNodeContents(document.getElementById("containerForFileInput"));
+      preCaretRange.setEnd(range.endContainer, range.endOffset);
+    
+      if(selected){ // *
+        caretOffset = preCaretRange.toString().length - selected; // *
+      } else { // *
+        caretOffset = preCaretRange.toString().length; 
+      } // *
+
+      var sel = window.getSelection();
+      let spanId = range.cloneContents().textContent;
+
+      if(spanId == undefined || spanId.length < 1) {
+        return;
+      }
+      span.id = caretOffset + spanId;
+
+      let pd:number = 3 * this.getInnerDepth(range.cloneContents());
+      span.style.padding = pd + "px"
+
+      range.surroundContents(span);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+
+    /*if (window.getSelection) {
+        var sel = window.getSelection();
+        if (sel.rangeCount) {
+            var range = sel.getRangeAt(0).cloneRange();
+
+            let spanId = range.cloneContents().textContent;
+            alert(sel.anchorOffset);
+            if(spanId == undefined) {
+              return;
+            }
+            span.id = spanId;
+
+            range.surroundContents(span);
+            sel.removeAllRanges();
+            sel.addRange(range);
+        }
+    }*/
+  }
+
+  getInnerDepth(parent): number{ 
+    var depth = 1; 
+    if (parent.children.length) {
+      var childDepth = 0;
+      for(var i=0; i<parent.children.length; i++){
+        childDepth = Math.max(this.getInnerDepth(parent.children[i]), childDepth);
+      };
+      depth += childDepth;
+    }
+    return depth;
   }
 
   /*public c() {
@@ -211,6 +279,12 @@ export class AnotateTextComponent implements OnInit {
                 }
                 j++;
               }
+
+              /*for (let c of this.dta){
+                if (c.idx > curOffset) {
+                  c.idx += node.label.length - 1;
+                }
+              }*/
             }
             this.annotateTextService.coloredWords.push(idx);
             console.log("pushing: " + idx);
