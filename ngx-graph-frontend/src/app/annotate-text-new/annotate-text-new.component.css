@@ -71,6 +71,24 @@ button:hover {background-color:#a1c057;border-color:#a1c057;color: white}
     height: 30px;
 }
 
+#adv {
+    margin-top: 20px;
+    box-sizing: border-box;
+    background-color: #a1c057;
+    border-radius: 5px;
+    color: white;
+    height: 200px;
+    padding: 10px;
+}
+
+#logo {
+    float: left;
+}
+
+#txt {
+    float: left
+}
+
 .rightC{
     float: right;
     width:48%;
