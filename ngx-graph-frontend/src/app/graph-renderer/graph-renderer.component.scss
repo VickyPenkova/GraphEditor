@@ -26,3 +26,222 @@
 .circle:hover{
   fill: #DA4567;
 }
+
+
+/* PIN */
+
+$strokeColor: #B8B8B8;
+$pinColor: #D64825;
+$size: 120px;
+$totalAnim: 2s;
+$delay: .2s;
+$svgSize: 60;
+$squareLen: 240;
+$lineLen: $svgSize;
+$linesPerSide: 3;
+$bigCircleLen: 188.522;
+$smallCircleLen: 94.261;
+$outerLen: 201.391;
+
+.pin {
+  position: absolute;
+  overflow: visible;
+  
+  &__group {
+    transform-origin: 30px 30px;
+    /*animation-name: group-anim;*/
+    animation-duration: $totalAnim;
+    animation-delay: $delay;
+	  animation-fill-mode: forwards;
+  }
+  
+  &__grayGroup {
+    /*animation-name: gray-anim;*/
+    animation-duration: $totalAnim;
+    animation-delay: $delay;
+	  animation-fill-mode: forwards;
+  }
+  
+  &__square {
+    stroke: $strokeColor;
+    stroke-dasharray: $squareLen, $squareLen;
+    stroke-dashoffset: $squareLen;
+    /*animation-name: square-anim;*/
+    animation-duration: $totalAnim;
+    animation-delay: $delay;
+	  animation-fill-mode: forwards;
+  }
+  
+  &__line {
+    stroke: $strokeColor;
+    stroke-dasharray: $lineLen, $lineLen;
+    stroke-dashoffset: $lineLen;
+    
+    @for $i from 1 through $linesPerSide {
+      &-#{$i} {
+        /*animation-name: line-anim;*/
+        animation-duration: $totalAnim;
+        animation-delay:  ($totalAnim/-40 * ($linesPerSide - $i) + $delay);
+		    animation-fill-mode: forwards;
+      }
+    }
+  }
+  
+  &__circleBig {
+    stroke: $strokeColor;
+    stroke-dasharray: $bigCircleLen, $bigCircleLen;
+    stroke-dashoffset: $bigCircleLen;
+    /*animation-name: bigCircle-anim;*/
+    animation-duration: $totalAnim;
+    animation-delay: $delay;
+  	animation-fill-mode: forwards;
+  }
+  
+  &__circleSmall {
+    stroke: $strokeColor;
+    stroke-dasharray: $smallCircleLen, $smallCircleLen;
+    stroke-dashoffset: $smallCircleLen;
+    /*animation-name: smallCircle-anim;*/
+    animation-duration: $totalAnim;
+    animation-delay: $delay;
+  	animation-fill-mode: forwards;
+  }
+  
+  &__outer {
+    stroke: $pinColor;
+    fill: transparent;
+    stroke-dasharray: $outerLen, $outerLen;
+    stroke-dashoffset: $outerLen;
+    /*animation-name: outer-anim;*/
+    animation-duration: $totalAnim;
+    animation-delay: $delay;
+  	animation-fill-mode: forwards;
+  }
+  
+  &__inner {
+    stroke: $pinColor;
+    fill: transparent;
+    stroke-dasharray: $smallCircleLen, $smallCircleLen;
+    stroke-dashoffset: $smallCircleLen;
+    /*animation-name: inner-anim;*/
+    animation-duration: $totalAnim;
+    animation-delay: $delay;
+	  animation-fill-mode: forwards;
+  }
+}
+
+@keyframes square-anim {
+  15% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes line-anim {
+  23% {
+    stroke-dashoffset: $lineLen;
+  }
+  30% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes bigCircle-anim {
+  30% {
+    stroke-dashoffset: $bigCircleLen;
+  }
+  43% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes smallCircle-anim {
+  43% {
+    stroke-dashoffset: $smallCircleLen;
+  }
+  53% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes group-anim {
+  53% {
+    transform: rotate(0);
+  }
+  61% {
+    transform: rotate(45deg);
+  }
+  94% {
+    transform: rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(45deg);
+    opacity: 1;
+  }
+}
+
+@keyframes outer-anim {
+  61% {
+    stroke-dashoffset: $outerLen;
+  }
+  71% {
+    stroke-dashoffset: 0;
+  }
+  79% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  94% {
+    stroke-dashoffset: 0;
+    fill: $pinColor;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: $pinColor;
+  }
+}
+
+@keyframes inner-anim {
+  71% {
+    stroke-dashoffset: $smallCircleLen;
+  }
+  79% {
+    stroke-dashoffset: 0;
+    fill: transparent;
+  }
+  94% {
+    stroke-dashoffset: 0;
+    fill: white;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    fill: white;
+  }
+}
+
+@keyframes gray-anim {
+  53% {
+    opacity: 1;
+  }
+  79% {
+    opacity: 0.2;
+  }
+  94% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}

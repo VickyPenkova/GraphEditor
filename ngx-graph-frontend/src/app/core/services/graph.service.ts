@@ -36,6 +36,7 @@ export class GraphService {
   private _nodesObservable: Subject<Node[]> = new Subject<Node[]> ();
   private _edgesObservable: Subject<Edge[]> = new Subject<Edge[]> ();
   private _currentGraphObservable: Subject<number> = new Subject<number>();
+  neighbours:Subject<string[]> = new Subject<string[]> ();
 
   //_files:Map<string,Map<string,string>> = new Map<string, Map<string,string> >();
   _files = {}
@@ -56,6 +57,16 @@ export class GraphService {
 
       this.updateGraphs();
     })
+  }
+
+  public markAllNeighbours(id):void {
+    let neighbours = []
+    for(let edge of this._graphs[this._currentGraph].graph.edges) {
+      if(edge.source == id) {
+        neighbours.push(edge.target)
+      }
+    }
+    this.neighbours.next(neighbours);
   }
 
   public updateFile(hash:string, html:string): void{

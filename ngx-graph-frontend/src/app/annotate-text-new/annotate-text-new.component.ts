@@ -4,6 +4,8 @@ import * as $ from "jquery";
 import { EdgeService } from "../core/services/edge.service";
 import { Subject } from "rxjs";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { GraphService } from "../core/services/graph.service";
+import { GraphRendererComponent } from "../graph-renderer/graph-renderer.component";
 
 @Component({
   selector: "app-annotate-text-new",
@@ -17,9 +19,15 @@ export class AnnotateTextNewComponent implements OnInit {
 
   constructor(private annotationService:AnnotationService,
               private edgeService:EdgeService,
+              private graphService: GraphService,
               private sanitized: DomSanitizer) { }
 
   ngOnInit() {
+    const ths = this;
+    $(document).on('click', ".markedWord", function(event){
+      ths.graphService.markAllNeighbours(event.target.id)
+    })
+
     this.annotationService.textObservable.subscribe( t=> {
       this.txt = this.sanitized.bypassSecurityTrustHtml(t)
     })
@@ -68,13 +76,15 @@ export class AnnotateTextNewComponent implements OnInit {
       if(content == undefined || content.length < 1) {
         return;
       }
-      span.id = caretOffset + (content.replace(/(\r\n|\n|\r|\.)/gm, "").replace(/ /g,""));
+      span.id = caretOffset + "_" + (content.replace(/(\r\n|\n|\r|\.)/gm, "").replace(/ /g,""));
       if(document.getElementById(span.id) != undefined) {
         return;
       }
 
       let pd:number = 3 * this.getInnerDepth(range.cloneContents());
       span.style.padding = pd + "px"
+      span.classList.add("markedWord")
+      span.style.cursor = "pointer"
 
       const currentHtml = document.getElementById("containerForFileInput").innerHTML
 
@@ -99,6 +109,10 @@ export class AnnotateTextNewComponent implements OnInit {
       this.markedWord = content;
       this.edgeService.addSource(this.markedWord, span.id, this.annotationService.hash, potentialHtml);
     }
+  }
+
+  mouseEnter(event):void {
+    alert("here")
   }
 
   getInnerDepth(parent): number{ 

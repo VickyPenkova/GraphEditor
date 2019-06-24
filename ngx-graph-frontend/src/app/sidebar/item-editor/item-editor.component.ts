@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { GraphService } from '../../core/services/graph.service';
 import { Node } from '@swimlane/ngx-graph';
 import { ItemEditService } from '../../core/services/item-edit.service';
+import { AnnotationService } from '../../core/services/annotation.service';
 
 @Component({
   selector: 'app-item-editor',
@@ -21,7 +22,8 @@ export class ItemEditorComponent implements OnInit {
   private isNode:boolean;
 
   constructor(private graphService:GraphService,
-              private itemEditService:ItemEditService) { }
+              private itemEditService:ItemEditService,
+              private annotationService: AnnotationService) { }
 
   ngOnInit() {
     if(this.item.meta != null) {
@@ -40,6 +42,19 @@ export class ItemEditorComponent implements OnInit {
 
   delete(): void {
     if(this.isNode) {
+      let txt = this.annotationService.text
+
+      let to_replace_start = '<span id="' + this.item.id;
+      let to_replace_end = '</span>'
+
+      let idx_start = txt.indexOf(to_replace_start)
+      let idx_end = txt.indexOf(to_replace_end, idx_start)
+
+      let txtOffset = this.item.id.indexOf('_')
+
+      txt = txt.substring(0, idx_start) + this.item.id.substring(txtOffset + 1) + txt.substring(idx_end);
+      
+      this.graphService.updateFile(this.annotationService.hash, txt);
       this.graphService.deleteNode(this.item);
     } else {
       this.graphService.deleteEdge(this.item);

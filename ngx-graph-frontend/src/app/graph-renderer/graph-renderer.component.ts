@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as shape from 'd3-shape';
+import * as $ from "jquery";
 import { Edge, Node, ClusterNode, Layout } from '@swimlane/ngx-graph';
 import { nodes, clusters, links } from '../data';
 import { Subject } from 'rxjs';
@@ -75,6 +76,10 @@ export class GraphRendererComponent implements OnInit {
       this.links = es;
       this.update$.next(true)
     });
+
+    this.graphService.neighbours.subscribe(nbs => {
+      this.toolTip(nbs)
+    })
 
     this.layoutService.layout.subscribe(l => {
       this.setLayout(l);
@@ -223,5 +228,33 @@ export class GraphRendererComponent implements OnInit {
     this.itemEditService.openItemForEditting(edge);
   }
 
+  private toolTip(neighbours): void {
+    $(".pin__group").css({"animation-name": "" });
+    $(".pin__grayGroup").css({"animation-name": "" });
+    $(".pin__square").css({"animation-name": "" });
+    $(".pin__line-1").css({"animation-name": "" });
+    $(".pin__line-2").css({"animation-name": "" });
+    $(".pin__line-3").css({"animation-name": "" });
+    $(".pin__circleBig").css({"animation-name": "" });
+    $(".pin__circleSmall").css({"animation-name": "" });
+    $(".pin__outer").css({"animation-name": "" });
+    $(".pin__inner").css({"animation-name": "" });
+
+    setTimeout(()=>{
+      for (let n of neighbours) {
+        $("#n"+n).find(".pin__group").css({"animation-name": "group-anim" });
+        $("#n"+n).find(".pin__grayGroup").css({"animation-name": "gray-anim" });
+        $("#n"+n).find(".pin__square").css({"animation-name": "square-anim" });
+        $("#n"+n).find(".pin__line-1").css({"animation-name": "line-anim" });
+        $("#n"+n).find(".pin__line-2").css({"animation-name": "line-anim" });
+        $("#n"+n).find(".pin__line-3").css({"animation-name": "line-anim" });
+        $("#n"+n).find(".pin__circleBig").css({"animation-name": "bigCircle-anim" });
+        $("#n"+n).find(".pin__circleSmall").css({"animation-name": "smallCircle-anim" });
+        $("#n"+n).find(".pin__outer").css({"animation-name": "outer-anim" });
+        $("#n"+n).find(".pin__inner").css({"animation-name": "inner-anim" });
+      }
+    }, 100)
+    
+  }
 
 }

@@ -37,7 +37,6 @@ export class NodeService {
 
   // TODO: reuse addNode
   public addLinkedNode(lbl:string, uuid:string):string {
-    let nextId = Math.floor(Math.random() * 1000000000);
     let node: Node = {
       dimension: {width: this.width, height: this.height},
       meta: {

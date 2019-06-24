@@ -38,6 +38,25 @@
             <svg:circle class="circle" [attr.r]="node.dimension.width/2" [attr.cx]="node.dimension.width/2" [attr.cy]="node.dimension.width/2" attr.fill="{{node.meta.color}}"/>
             <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.dimension.height / 2">{{node.label}}</svg:text>
           </svg:g>
+          <svg id="n{{node.id}}" class="pin" [attr.x]="node.dimension.width/2-node.dimension.width/4" [attr.y]="-(node.dimension.height / 2 + 370)" [attr.width]="node.dimension.width/2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 60 60" version="1.1">
+            <g class="pin__group">
+              <g class="pin__grayGroup">
+                <path class="pin__square" fill="none" stroke-width="1" d="M0,0 0,60 60,60 60,0z"/>
+                <path class="pin__line pin__line-1" fill="none" stroke-width="1" d="M15,0 15,60"/>
+                <path class="pin__line pin__line-2" fill="none" stroke-width="1" d="M30,0 30,60"/>
+                <path class="pin__line pin__line-3" fill="none" stroke-width="1" d="M45,0 45,60"/>
+                <path class="pin__line pin__line-1" fill="none" stroke-width="1" d="M0,45 60,45"/>
+                <path class="pin__line pin__line-2" fill="none" stroke-width="1" d="M0,30 60,30"/>
+                <path class="pin__line pin__line-3" fill="none" stroke-width="1" d="M0,15 60,15"/>
+                <path class="pin__circleBig" fill="none" stroke-width="1" d="M60,30 a30,30 0 0,1 -60,0 a30,30 0 0,1 60,0"/>
+                <path class="pin__circleSmall" fill="none" stroke-width="1" d="M45,30 a15,15 0 0,1 -30,0 a15,15 0 0,1 30,0"/>
+              </g>
+              <g class="pin__greenGroup">
+                <path class="pin__outer" stroke-width="2" d="M30,0 a30,30 0 0,1 30,30 L60,60 30,60 a30,30 0 0,1 0,-60"/>
+                <path class="pin__inner" stroke-width="2" d="M45,30 a15,15 0 0,1 -30,0 a15,15 0 0,1 30,0"/>
+              </g>
+            </g>
+          </svg>
         </ng-template>
 
         <ng-template #linkTemplate let-link>
