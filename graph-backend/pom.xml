@@ -65,7 +65,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-        			<mainClass>com.graphbackend.graphbackend.GraphBackendApplication.java</mainClass>
+        			<mainClass>com.graphbackend.graphbackend.GraphBackendApplication</mainClass>
 					<addResources>true</addResources>
 				</configuration>
                 <executions>
